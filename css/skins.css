@@ -1,0 +1,53 @@
+/* Estilos adicionales si es necesario */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+/* Cambiar el selector del menú a un ID o clase específica */
+menu {
+    margin: 0;
+    padding: 0;
+}
+
+h2 {
+    color: #333;
+    margin-top: 120px;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-bottom: 20px; /* Agregué margen inferior */
+}
+
+.main-content {
+    margin-top: 50px;
+    margin-left: 20px;
+    margin-right: 20px;
+    padding-bottom: 5em;
+}
+
+p {
+    color: #666;
+    font-size: 18px;
+}
+
+.tabla {
+    width: 100%; /* Opcional: ancho completo */
+    border-collapse: collapse; /* Colapsar bordes de la tabla */
+}
+
+.tabla th, .tabla td {
+    border: 1px solid #ddd; /* Bordes entre celdas */
+    padding: 8px; /* Espacio interno */
+    text-align: center; /* Centrar texto */
+}
+
+.tabla th {
+    background-color: #f2f2f2; /* Color de fondo para encabezados */
+}
+
+.primer-fila {
+    background-color: #8bc34a; /* Color de fondo para la primera fila */
+}

@@ -1,0 +1,47 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+/* Cambiar el selector del menú a un ID o clase específica */
+menu {
+    margin: 0;
+    padding: 0;
+}
+
+.main-content {
+    margin-top: 100px; /* Ajustar según el tamaño de la barra de navegación */
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 20px; /* Agregamos padding horizontal para respetar márgenes */
+    box-sizing: border-box;
+}
+
+h2 {
+    color: #333;
+    margin-bottom: 30px;
+}
+
+/* Agrupar estilos comunes para los párrafos */
+p {
+    color: #666;
+    font-size: 18px;
+    line-height: 1.6;
+    margin: 0 20px 20px; /* Establecer margen en todos los lados excepto arriba */
+    text-align: justify;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 20px auto; /* Centrar la imagen horizontalmente con margen superior e inferior */
+}
+
+#footer{
+    margin-top: 5em;
+}
