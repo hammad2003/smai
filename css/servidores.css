@@ -116,3 +116,20 @@ button:hover {
    background-color: #45a049;
  }
  
+ .boton-parar-servidor {
+   background-color: red;
+   color: white;
+   border: none;
+   padding: 8px 16px;
+   text-align: center;
+   text-decoration: none;
+   display: inline-block;
+   font-size: 16px;
+   margin: 4px 2px;
+   cursor: pointer;
+   border-radius: 4px;
+ }
+ 
+ .boton-parar-servidor:hover {
+   background-color: red;
+ }

@@ -53,6 +53,7 @@
                     <th>Nombre del Servidor</th>
                     <th>Estilo</th>
                     <th>Versión</th>
+                    <th>Dirección IP</th>
                     <th class="Acciones">Acciones</th>
                 </tr>
             </thead>
@@ -158,7 +159,11 @@ function cargarServidores() {
                             '<td>' + servidor.nombre + '</td>' +
                             '<td>' + servidor.software + '</td>' +
                             '<td>' + servidor.version + '</td>' +
-                            '<td><button class="boton-iniciar-servidor" onclick="iniciarServidor(' + servidor.id + ')">Iniciar</button></td>' +
+                            '<td>' + servidor.ip_address + '</td>' + // Mostrar la dirección IP almacenada
+                            '<td>' +
+                                '<button class="boton-iniciar-servidor" onclick="iniciarServidor(' + servidor.id + ')">Iniciar</button>' +
+                                '<button class="boton-parar-servidor" onclick="eliminarServidor(' + servidor.id + ')">Eliminar</button>' +
+                            '</td>' +
                           '</tr>';
                 $('#tbodyServidores').append(row);
             }
@@ -181,29 +186,39 @@ function cargarServidores() {
     });
 }
 
-
-function iniciarServidor(id) {
+function iniciarServidor() {
+    // Realizar una solicitud AJAX para iniciar el servidor
     $.ajax({
         type: 'POST',
         url: 'iniciar_servidor.php',
-        data: { id: id },
+        dataType: 'json',
         success: function(response) {
-            // Alerta con estilo personalizado para el éxito
-            Swal.fire({
-                icon: 'success',
-                title: 'Servidor iniciado con éxito',
-                text: 'El servidor se ha iniciado correctamente.',
-                confirmButtonColor: '#3085d6',
-                confirmButtonText: 'Ok'
-            });
-            // Aquí puedes manejar la respuesta del servidor, por ejemplo, actualizar la interfaz de usuario.
+            if (response.success) {
+                // Alerta de éxito con SweetAlert2
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Éxito',
+                    text: response.message,
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'Ok'
+                });
+            } else {
+                // Alerta de error con SweetAlert2
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: response.message,
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'Ok'
+                });
+            }
         },
         error: function() {
-            // Alerta con estilo personalizado para el error
+            // Alerta de error de conexión con SweetAlert2
             Swal.fire({
                 icon: 'error',
-                title: 'Error al iniciar el servidor',
-                text: 'Hubo un problema al iniciar el servidor. Por favor, inténtalo de nuevo más tarde.',
+                title: 'Error de conexión al servidor',
+                text: 'No se pudo conectar con el servidor. Por favor, inténtelo de nuevo.',
                 confirmButtonColor: '#3085d6',
                 confirmButtonText: 'Ok'
             });
@@ -213,9 +228,7 @@ function iniciarServidor(id) {
 
 
 
-
-
-   </script>
+</script>
 
 <footer></footer>
 </body>
