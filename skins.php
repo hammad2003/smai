@@ -8,18 +8,16 @@
 </head>
 
 <body>
-<!-- Barra de navegación -->
 <menu></menu>
 
 <div class="main-content">
     <h2>Esta es la página de Skins</h2>
     <p>Aquí podrías mostrar contenido relacionado con Skins.</p>
 
-    <!-- Tabla -->
     <table class="tabla">
         <thead>
 
-    <tr class="primer-fila">                
+    <tr class="fila">                
             <th>chk</th>
             <th>HALALTNVY 2</th>
             <th>unerrr</th>
@@ -34,9 +32,9 @@
                 <td><a href="/Descargables/skin3.png" download><img src="/Img/skin3.png" alt="Descripción de la imagen"></a></td>
                 <td><a href="/Descargables/skin4.png" download><img src="/Img/skin4.png" alt="Descripción de la imagen"></a></td>
             </tr>
-            <tr>
+            <tr class="fila">
                 <td>bronzeey</td>
-                <td>AdzeeAdzeeAdzee/td>
+                <td>AdzeeAdzeeAdzee</td>
                 <td>InDiaGoOd</td>
                 <td>Cymatics</td>
             </tr>

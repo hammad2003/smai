@@ -4,26 +4,16 @@
    <meta charset="UTF-8">
    <title>Lista de Servidores</title>
    <link rel="stylesheet" href="css/servidores.css">
-
-
-   <!-- Agregar los enlaces a SweetAlert2 CSS y JS -->
    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10">
    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-  
-
 </head>
 <body>
-
 <menu></menu>
 
-
    <h1>Servidores</h1>
-
-
    <!-- Botón para mostrar el formulario de nuevo servidor -->
    <button id="botonCrear" onclick="mostrarFormulario()">Crear Servidor</button>
-
 
    <!-- Formulario para crear un nuevo servidor -->
    <div id="nuevoServidorForm">
@@ -53,8 +43,6 @@
        <button onclick="guardarNuevoServidor()">Guardar Servidor</button>
    </div>
 
-
-
     <!-- Lista de Servidores -->
     <div id="listaServidores">
         <h2>Lista de Servidores</h2>
@@ -74,29 +62,17 @@
         </table>
     </div>
 
-
-
-
-
-
-
 <!-- Elemento para mostrar el estado del servidor -->
 <div id="estadoServidor"></div>
 
 
    <script>
-
-
-
-
        // Función para mostrar el formulario de nuevo servidor y ocultar el botón
        function mostrarFormulario() {
            $('#botonCrear').hide();
            $('#nuevoServidorForm').slideDown();
        }
 
-
-   
        // Función para guardar un nuevo servidor.
        // Función para guardar un nuevo servidor.
         function guardarNuevoServidor() {
@@ -156,11 +132,6 @@
         }
 
 
-
-
-
-
-     
       // Llamada a la función para cargar los servidores al cargar la página.
 $(document).ready(function() {
     cargarServidores();

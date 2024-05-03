@@ -6,15 +6,13 @@
   display: grid;
   grid-template-columns: repeat(4, 1fr); /* Distribución en 4 columnas */
   gap: 20px; /* Espacio entre columnas */
-  position: relative;
-  bottom: 0;
-  width: 100%;
 }
 
 /* Estilos para los elementos dentro del footer */
 #footer h4 {
   text-align: left;
   margin-bottom: 20px; /* Espaciado inferior para los títulos */
+  padding-left: 8em;
 }
 
 #footer ul {
@@ -25,6 +23,7 @@
 
 #footer ul li {
   margin-bottom: 8px; /* Espaciado inferior para los elementos de lista */
+  padding-left: 8em;
 }
 
 #footer a {
@@ -34,4 +33,10 @@
 
 #footer a:hover {
   text-decoration: underline; /* Subrayado al pasar el ratón sobre el enlace */
+}
+
+#licencia {
+  justify-self: end; /* Centra horizontalmente la imagen */
+  align-self: center; /* Centra verticalmente la imagen */
+  padding-right: 8em;
 }

@@ -44,10 +44,8 @@ p {
     text-align: center; /* Centrar texto */
 }
 
-.tabla th {
-    background-color: #f2f2f2; /* Color de fondo para encabezados */
-}
-
-.primer-fila {
-    background-color: #8bc34a; /* Color de fondo para la primera fila */
+.fila {
+    background-color: #4caf50; /* Color de fondo para la primera fila */
+    color: white;
+    font-weight: bold; /* Texto en negrita */
 }

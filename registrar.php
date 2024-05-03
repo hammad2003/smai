@@ -10,7 +10,6 @@
 <body>
     <h2>Registrar cuenta</h2>
 
-    <!-- Formulario de registro -->
     <form method="post" action="procesar_registro.php">
         <label for="nombre">Nombre:</label>
         <input type="text" name="nombre" required>
