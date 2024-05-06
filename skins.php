@@ -4,15 +4,14 @@
     <meta charset="UTF-8">
     <title>Skins</title>
     <link rel="stylesheet" href="css/skins.css"> 
-
 </head>
-
 <body>
+
 <menu></menu>
 
 <div class="main-content">
     <h2>Esta es la página de Skins</h2>
-    <p>Aquí podrías mostrar contenido relacionado con Skins.</p>
+    <!-- <p>Aquí podrías mostrar contenido relacionado con Skins.</p> -->
 
     <table class="tabla">
         <thead>
@@ -49,7 +48,6 @@
 </div>
 
 <footer></footer>
-
 </body>
 <script type="text/javascript" src="main.js"></script>
 </html>

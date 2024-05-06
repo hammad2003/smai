@@ -1,28 +1,38 @@
+@font-face {
+    font-family: 'Minecraft';
+    /* src: url('/fonts/Minecraft.ttf') format('truetype'); */
+    src: url('/fonts/Play-Bold.ttf') format('truetype');
+}
+
+.minecraft-font {
+    font-family: 'Minecraft', sans-serif;
+}
+
+
 body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
     text-align: center !important;
     margin: 0;
-    padding: 0;
+    padding-top: 6em;
+    padding-bottom: 6em;
 }
 
-nav {
-    margin-top: 0; /* Elimina el margen superior de la barra de navegación */
+h1 {
+    font-size: 90px;
+    font-family: Play, sans-serif;
+    color: #4caf50;
 }
 
-/* Cambiar el selector del menú a un ID o clase específica */
-menu {
-    margin: 0;
-    padding: 0;
-}
 
-.main-content {
+
+/* .main-content {
     text-align: center !important;
-    margin-top: 100px; /* Ajustar según el tamaño de la barra de navegación */
+    margin-top: 100px; 
     max-width: 800px;
     margin-left: auto;
     margin-right: auto;
-    padding: 0 20px; /* Agregamos padding horizontal para respetar márgenes */
+    padding: 0 20px; 
     box-sizing: border-box;
 }
 
@@ -31,12 +41,11 @@ h2 {
     margin-bottom: 30px;
 }
 
-/* Agrupar estilos comunes para los párrafos */
 p {
     color: #666;
     font-size: 18px;
     line-height: 1.6;
-    margin: 0 20px 20px; /* Establecer margen en todos los lados excepto arriba */
+    margin: 0 20px 20px;
     text-align: justify;
 }
 
@@ -44,9 +53,9 @@ img {
     max-width: 100%;
     height: auto;
     display: block;
-    margin: 20px auto; /* Centrar la imagen horizontalmente con margen superior e inferior */
-}
+    margin: 20px auto;
+} 
 
 #footer{
     margin-top: 5em;
-}
+} */

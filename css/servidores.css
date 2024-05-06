@@ -1,14 +1,7 @@
 body {
-   font-family: Arial, sans-serif; /* Cambié las comillas en 'Arial' por comillas simples */
+   font-family: Arial, sans-serif;
    background-color: #f4f4f4;
    text-align: center !important;
-   margin: 0;
-   padding: 0;
-   overflow-x: hidden; /* Desactiva el desplazamiento horizontal */
-}
-
-/* Cambiar el selector del menú a un ID o clase específica */
-menu {
    margin: 0;
    padding: 0;
 }
@@ -19,12 +12,9 @@ h1 {
    margin-bottom: 20px;
 }
 
-#botonCrear{
-}
-
 #nuevoServidorForm {
-   width: 80%; /* Ajuste del ancho del formulario */
-   margin: 20px auto; /* Centrar el formulario */
+   width: 80%; 
+   margin: 20px auto; 
    background-color: #fff;
    border-radius: 8px;
    padding: 20px;
@@ -41,7 +31,7 @@ label {
 }
 
 input, select {
-   width: calc(100% - 22px); /* Ajuste del ancho de los campos de entrada */
+   width: calc(100% - 22px);
    padding: 10px;
    margin-bottom: 16px;
    border: 1px solid #ddd;
@@ -63,7 +53,7 @@ button {
    font-size: 18px;
    cursor: pointer;
    border-radius: 4px;
-   transition: background-color 0.3s; /* Moví la propiedad de transición al selector base */
+   transition: background-color 0.3s; 
 }
 
 button:hover {
@@ -71,9 +61,11 @@ button:hover {
 }
 
 #listaServidores {
-   padding-bottom: 6em;
-   width: 80%; /* Ajuste del ancho de la lista de servidores */
-   margin: 20px auto; /* Centrar la lista de servidores */
+   padding-left: 6em;
+   padding-right: 6em;
+   padding-bottom: 8em;
+   margin-left: 20px;
+   margin-right: 20px;
 }
 
 #listaServidores table {
@@ -97,7 +89,6 @@ button:hover {
    text-align: center !important;
  }
  
-
 .boton-iniciar-servidor {
    background-color: #4caf50;
    color: white;

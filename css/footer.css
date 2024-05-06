@@ -1,42 +1,44 @@
-/* Estilos para el footer */
 #footer {
-  background-color: #4caf50; /* Fondo verde */
-  color: white; /* Texto blanco */
-  padding: 20px; /* Espaciado interno */
+  position: fixed;
+  background-color: #4caf50; 
+  color: white; 
+  padding: 20px; 
   display: grid;
-  grid-template-columns: repeat(4, 1fr); /* Distribución en 4 columnas */
-  gap: 20px; /* Espacio entre columnas */
+  grid-template-columns: repeat(4, 1fr); 
+  gap: 20px; 
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
 
-/* Estilos para los elementos dentro del footer */
 #footer h4 {
   text-align: left;
-  margin-bottom: 20px; /* Espaciado inferior para los títulos */
-  padding-left: 8em;
+  margin-bottom: 20px;
+  padding-left: 6em;
 }
 
 #footer ul {
   text-align: left;
-  list-style: none; /* Quita los estilos de lista */
+  list-style: none; 
   padding: 0;
 }
 
 #footer ul li {
-  margin-bottom: 8px; /* Espaciado inferior para los elementos de lista */
-  padding-left: 8em;
+  margin-bottom: 8px;
+  padding-left: 6em;
 }
 
 #footer a {
-  color: white; /* Color del enlace */
-  text-decoration: none; /* Quita el subrayado del enlace */
+  color: white; 
+  text-decoration: none; 
 }
 
 #footer a:hover {
-  text-decoration: underline; /* Subrayado al pasar el ratón sobre el enlace */
+  text-decoration: underline;
 }
 
 #licencia {
-  justify-self: end; /* Centra horizontalmente la imagen */
-  align-self: center; /* Centra verticalmente la imagen */
-  padding-right: 8em;
+  justify-self: end;
+  align-self: center;
+  padding-right: 6em;
 }

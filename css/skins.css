@@ -4,13 +4,6 @@ body {
     background-color: #f4f4f4;
     text-align: center;
     margin: 0;
-    padding: 0;
-}
-
-/* Cambiar el selector del menú a un ID o clase específica */
-menu {
-    margin: 0;
-    padding: 0;
 }
 
 h2 {
@@ -22,6 +15,8 @@ h2 {
 }
 
 .main-content {
+    padding-left: 6em;
+    padding-right: 6em;
     margin-top: 50px;
     margin-left: 20px;
     margin-right: 20px;

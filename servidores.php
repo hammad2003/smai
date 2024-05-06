@@ -9,6 +9,7 @@
    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 </head>
 <body>
+    
 <menu></menu>
 
    <h1>Servidores</h1>
@@ -67,70 +68,70 @@
 <div id="estadoServidor"></div>
 
 
-   <script>
-       // Función para mostrar el formulario de nuevo servidor y ocultar el botón
-       function mostrarFormulario() {
-           $('#botonCrear').hide();
-           $('#nuevoServidorForm').slideDown();
-       }
+<script>
+    // Función para mostrar el formulario de nuevo servidor y ocultar el botón
+    function mostrarFormulario() {
+        $('#botonCrear').hide();
+        $('#nuevoServidorForm').slideDown();
+    }
 
-       // Función para guardar un nuevo servidor.
-       // Función para guardar un nuevo servidor.
-        function guardarNuevoServidor() {
-            var nombreServidor = $('#nombreServidor').val();
-            var estilo = $('#estilo').val();
-            var version = $('#version').val();
+    // Función para guardar un nuevo servidor.
+    // Función para guardar un nuevo servidor.
+    function guardarNuevoServidor() {
+        var nombreServidor = $('#nombreServidor').val();
+        var estilo = $('#estilo').val();
+        var version = $('#version').val();
 
-            // Realizar una solicitud AJAX para guardar el nuevo servidor.
-            $.ajax({
-                type: 'POST',
-                url: 'guardar_servidor.php',
-                data: JSON.stringify({
-                    nombreServidor: nombreServidor,
-                    estilo: estilo,
-                    version: version
-                }),
-                contentType: 'application/json',
-                success: function(response) {
-                    var result = JSON.parse(response);
-                    if (result.success) {
-                        // Alerta de éxito con SweetAlert2
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Éxito',
-                            text: 'Servidor creado con éxito',
-                            confirmButtonColor: '#3085d6',
-                            confirmButtonText: 'Ok'
-                        }).then((result) => {
-                            if (result.isConfirmed) {
-                                cargarServidores(); // Recargar la lista de servidores.
-                                $('#nuevoServidorForm').slideUp(); // Ocultar el formulario.
-                                $('#botonCrear').show(); // Mostrar el botón nuevamente.
-                            }
-                        });
-                    } else {
-                        // Alerta de error con SweetAlert2
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Error',
-                            text: 'Error al crear el servidor: ' + result.message,
-                            confirmButtonColor: '#3085d6',
-                            confirmButtonText: 'Ok'
-                        });
-                    }
-                },
-                error: function() {
-                    // Alerta de error de conexión con SweetAlert2
+        // Realizar una solicitud AJAX para guardar el nuevo servidor.
+        $.ajax({
+            type: 'POST',
+            url: 'guardar_servidor.php',
+            data: JSON.stringify({
+                nombreServidor: nombreServidor,
+                estilo: estilo,
+                version: version
+            }),
+            contentType: 'application/json',
+            success: function(response) {
+                var result = JSON.parse(response);
+                if (result.success) {
+                    // Alerta de éxito con SweetAlert2
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Éxito',
+                        text: 'Servidor creado con éxito',
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: 'Ok'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            cargarServidores(); // Recargar la lista de servidores.
+                            $('#nuevoServidorForm').slideUp(); // Ocultar el formulario.
+                            $('#botonCrear').show(); // Mostrar el botón nuevamente.
+                        }
+                    });
+                } else {
+                    // Alerta de error con SweetAlert2
                     Swal.fire({
                         icon: 'error',
-                        title: 'Error de conexión al servidor',
-                        text: 'Tu sesión ha expirado. Por favor, inicia sesión nuevamente.',
+                        title: 'Error',
+                        text: 'Error al crear el servidor: ' + result.message,
                         confirmButtonColor: '#3085d6',
                         confirmButtonText: 'Ok'
                     });
                 }
-            });
-        }
+            },
+            error: function() {
+                // Alerta de error de conexión con SweetAlert2
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error de conexión al servidor',
+                    text: 'Tu sesión ha expirado. Por favor, inicia sesión nuevamente.',
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'Ok'
+                });
+            }
+        });
+    }
 
 
       // Llamada a la función para cargar los servidores al cargar la página.
@@ -185,47 +186,6 @@ function cargarServidores() {
         }
     });
 }
-
-function iniciarServidor() {
-    // Realizar una solicitud AJAX para iniciar el servidor
-    $.ajax({
-        type: 'POST',
-        url: 'iniciar_servidor.php',
-        dataType: 'json',
-        success: function(response) {
-            if (response.success) {
-                // Alerta de éxito con SweetAlert2
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Éxito',
-                    text: response.message,
-                    confirmButtonColor: '#3085d6',
-                    confirmButtonText: 'Ok'
-                });
-            } else {
-                // Alerta de error con SweetAlert2
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Error',
-                    text: response.message,
-                    confirmButtonColor: '#3085d6',
-                    confirmButtonText: 'Ok'
-                });
-            }
-        },
-        error: function() {
-            // Alerta de error de conexión con SweetAlert2
-            Swal.fire({
-                icon: 'error',
-                title: 'Error de conexión al servidor',
-                text: 'No se pudo conectar con el servidor. Por favor, inténtelo de nuevo.',
-                confirmButtonColor: '#3085d6',
-                confirmButtonText: 'Ok'
-            });
-        }
-    });
-}
-
 
 
 </script>
