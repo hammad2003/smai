@@ -23,26 +23,28 @@
        <input type="text" id="nombreServidor" required>
 
 
-       <label for="estilo">Estilo:</label>
-       <select id="estilo" required>
+       <label for="software">Software:</label>
+       <select id="software" required>
            <option value="Java">Java</option>
+           <option value="Forge">Forge</option>
            <option value="Bedrock">Bedrock</option>
+
        </select>
 
 
        <label for="version">Versión:</label>
        <select id="version" required>
-           <option value="1.20.6">1.20.6</option>
-           <option value="1.20.4">1.20.4</option>
-           <option value="1.18.2">1.18.2</option>
-           <option value="1.18.2">1.12.2</option>
-           <option value="1.18.2">1.8.9</option>
-           
+            <option value="1.20.4">1.20.4</option>
+            <option value="1.18.2"> &#9733; 1.18.2 (Recomended)</option>
+            <option value="1.12.2"> &#9733; 1.12.2 (Recomended)</option>
+
            <!-- Agrega más versiones según sea necesario -->
        </select>
 
-       <button onclick="guardarNuevoServidor()">Guardar Servidor</button>
-   </div>
+       <button class='button1' onclick="guardarNuevoServidor()">Guardar Servidor</button>
+       <button class='button2' onclick="cerrarFormulario()">Cerrar</button>
+
+    </div>
 
     <!-- Lista de Servidores -->
     <div id="listaServidores">
@@ -52,7 +54,7 @@
                 <tr>
                     <th>ID</th>
                     <th>Nombre del Servidor</th>
-                    <th>Estilo</th>
+                    <th>Software</th>
                     <th>Versión</th>
                     <th>Dirección IP</th>
                     <th class="Acciones">Acciones</th>
@@ -79,7 +81,7 @@
     // Función para guardar un nuevo servidor.
     function guardarNuevoServidor() {
         var nombreServidor = $('#nombreServidor').val();
-        var estilo = $('#estilo').val();
+        var software = $('#software').val();
         var version = $('#version').val();
 
         // Realizar una solicitud AJAX para guardar el nuevo servidor.
@@ -88,7 +90,7 @@
             url: 'guardar_servidor.php',
             data: JSON.stringify({
                 nombreServidor: nombreServidor,
-                estilo: estilo,
+                software: software,
                 version: version
             }),
             contentType: 'application/json',
@@ -132,6 +134,12 @@
             }
         });
     }
+    
+
+    function cerrarFormulario() {
+        $('#nuevoServidorForm').slideUp(); // Oculta el formulario usando slideUp()
+        $('#botonCrear').show(); // Muestra el botón "Crear Servidor"
+    }
 
 
       // Llamada a la función para cargar los servidores al cargar la página.
@@ -161,7 +169,7 @@ function cargarServidores() {
                             '<td>' + servidor.software + '</td>' +
                             '<td>' + servidor.version + '</td>' +
                             '<td>' + servidor.ip_address + '</td>' + // Mostrar la dirección IP almacenada
-                            '<td>' +
+                            '<td class="centrar-boton" >' +
                                 '<button class="boton-iniciar-servidor" onclick="iniciarServidor(' + servidor.id + ')">Iniciar</button>' +
                                 '<button class="boton-parar-servidor" onclick="eliminarServidor(' + servidor.id + ')">Eliminar</button>' +
                             '</td>' +

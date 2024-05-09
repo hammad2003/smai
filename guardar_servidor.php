@@ -5,7 +5,7 @@ include 'config.php';
 $data = json_decode(file_get_contents("php://input"));
 
 // Validar datos (puedes agregar más validaciones según tus requisitos).
-if (empty($data->nombreServidor) || empty($data->estilo) || empty($data->version)) {
+if (empty($data->nombreServidor) || empty($data->software) || empty($data->version)) {
     echo json_encode(['success' => false, 'message' => 'Todos los campos son obligatorios']);
     exit();
 }
@@ -16,11 +16,11 @@ $idUsuario = $_SESSION['id_usuario']; // Asegúrate de usar el nombre correcto d
 
 // Extraer datos.
 $nombreServidor = $conn->real_escape_string($data->nombreServidor);
-$estilo = $conn->real_escape_string($data->estilo);
+$software = $conn->real_escape_string($data->software);
 $version = $conn->real_escape_string($data->version);
 
 // Insertar datos en la base de datos.
-$sql = "INSERT INTO servidores (nombre, software, version, id_usuario) VALUES ('$nombreServidor', '$estilo', '$version', '$idUsuario')";
+$sql = "INSERT INTO servidores (nombre, software, version, id_usuario) VALUES ('$nombreServidor', '$software', '$version', '$idUsuario')";
 
 if ($conn->query($sql) === TRUE) {
     echo json_encode(['success' => true, 'message' => 'Datos guardados correctamente.']);

@@ -1,27 +1,6 @@
-.container {
-    position: relative;
-    background-color: rgba(255, 255, 255, 0.8); /* Fondo blanco con opacidad */
-    padding: 55px;
-    border-radius: 10px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); /* Sombra */
-    backdrop-filter: blur(10px); /* Efecto de desenfoque */
-    max-width: 400px; /* Ancho máximo para centrar el contenido */
-    margin: auto; /* Centrar horizontalmente */
-}
-
-#video-fondo {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* Ajusta el video para cubrir el contenedor sin distorsionar */
-    z-index: -1;
-}
-
 body {
     font-family: Arial, sans-serif;
-    background-image: #f4f4f4;
+    background-color: #f4f4f4;
     text-align: center;
     display: flex;
     flex-direction: column;
@@ -71,7 +50,6 @@ button:hover {
     background-color: #45a049;
 }
 
-/* Estilo para los hipervínculos dentro del formulario */
 form a {
     color: #007bff;
     text-decoration: none;

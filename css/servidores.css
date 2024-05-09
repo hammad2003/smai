@@ -56,9 +56,20 @@ button {
    transition: background-color 0.3s; 
 }
 
-button:hover {
-   background-color: #45a049;
+.button2 {
+   background-color: red;
+   color: white;
+   border: none;
+   padding: 12px 20px;
+   font-size: 18px;
+   cursor: pointer;
+   border-radius: 4px;
+   transition: background-color 0.3s; 
 }
+
+/* button:hover {
+   background-color: #45a049;
+} */
 
 #listaServidores {
    padding-left: 6em;
@@ -123,4 +134,8 @@ button:hover {
  
  .boton-parar-servidor:hover {
    background-color: red;
+ }
+
+ .centrar-boton{
+   text-align: center !important;
  }
