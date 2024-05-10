@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $_SESSION['id_usuario'] = $row['id']; // Guardar solo la ID del usuario
 
             // Redirigir a la página de inicio
-            header("Location: inicio.php");
+            header("Location: inicio.html");
             exit();
         } else {
             // Contraseña incorrecta, mostrar mensaje de error

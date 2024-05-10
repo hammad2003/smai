@@ -11,7 +11,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["registro"])) {
     $sql = "INSERT INTO usuarios (nombre, correo, contrasena) VALUES ('$nombre', '$correo', '$contrasena')";
     if ($conn->query($sql) === TRUE) {
         // Redirigir a la página de inicio de sesión
-        header("Location: index.php");
+        header("Location: index.html");
         exit();
     } else {
         echo "<p>Error al registrar el usuario: " . $conn->error . "</p>";

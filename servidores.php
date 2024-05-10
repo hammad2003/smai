@@ -37,8 +37,6 @@
             <option value="1.20.4">1.20.4</option>
             <option value="1.18.2"> &#9733; 1.18.2 (Recomended)</option>
             <option value="1.12.2"> &#9733; 1.12.2 (Recomended)</option>
-
-           <!-- Agrega más versiones según sea necesario -->
        </select>
 
        <button class='button1' onclick="guardarNuevoServidor()">Guardar Servidor</button>
@@ -77,7 +75,6 @@
         $('#nuevoServidorForm').slideDown();
     }
 
-    // Función para guardar un nuevo servidor.
     // Función para guardar un nuevo servidor.
     function guardarNuevoServidor() {
         var nombreServidor = $('#nombreServidor').val();
@@ -142,10 +139,10 @@
     }
 
 
-      // Llamada a la función para cargar los servidores al cargar la página.
-$(document).ready(function() {
-    cargarServidores();
-});
+    // Llamada a la función para cargar los servidores al cargar la página.
+    $(document).ready(function() {
+        cargarServidores();
+    });
 
 // Función para cargar los servidores desde el servidor.
 function cargarServidores() {
@@ -194,8 +191,6 @@ function cargarServidores() {
         }
     });
 }
-
-
 </script>
 
 <footer></footer>
