@@ -22,7 +22,27 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // Redirigir a la página de inicio
             header("Location: inicio.html");
             exit();
+
         } else {
+            // Contraseña incorrecta, mostrar mensaje de error
+            echo json_encode(array("success" => false, "message" => "Credenciales inválidas. Por favor, verifica tu correo y contraseña."));
+        }
+    } else {
+        // Usuario no encontrado, mostrar mensaje de error
+        echo json_encode(array("success" => false, "message" => "Credenciales inválidas. Por favor, verifica tu correo y contraseña."));
+    }
+}
+
+// Si llega a este punto, probablemente se accedió a procesar_iniciar_sesion.php sin enviar el formulario
+echo json_encode(array("success" => false, "message" => "Acceso no autorizado."));
+?>
+
+
+
+
+
+
+<!-- } else {
             // Contraseña incorrecta, mostrar mensaje de error
             echo "Credenciales inválidas. Por favor, verifica tu correo y contraseña.";
         }
@@ -34,4 +54,4 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 // Si llega a este punto, probablemente se accedió a procesar_iniciar_sesion.php sin enviar el formulario
 echo "Acceso no autorizado.";
-?>
+?> -->

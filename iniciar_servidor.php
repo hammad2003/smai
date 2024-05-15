@@ -19,7 +19,14 @@ if ($result->num_rows > 0) {
     $comando = "sudo docker run -d -it -p $puerto:25565 -e EULA=TRUE -e VERSION={$servidor['version']}";
     if ($servidor['software'] === 'Forge') {
         $comando .= " -e TYPE=FORGE";
-    }
+    } elseif ($servidor['software'] === 'Forge') {
+        $comando .= " -e TYPE=FORGE";
+    } elseif ($servidor['software'] === 'Spigot') {
+        $comando .= " -e TYPE=SPIGOT";
+    } elseif ($servidor['software'] === 'Bukkit') {
+        $comando .= " -e TYPE=BUKKIT";
+    } 
+    
     $comando .= " itzg/minecraft-server";
 
     $output = shell_exec($comando);
