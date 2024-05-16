@@ -144,6 +144,11 @@
             success: function(response) {
                 var result = JSON.parse(response);
                 if (result.success) {
+                    // Ocultar los botones de "Iniciar" y "Eliminar"
+                    $('.boton-iniciar-servidor, .boton-parar-servidor').hide();
+                    // Mostrar los botones de "Apagar" y "Reiniciar"
+                    $('.boton-apagar-servidor, .boton-reiniciar-servidor').show();
+
                     // Alerta de éxito con SweetAlert2
                     Swal.fire({
                         icon: 'success',
@@ -226,6 +231,106 @@
             }
         });
     }
+
+    // Función para detener el servidor
+    function apagarServidor(servidorId) {
+        // Realizar una solicitud AJAX para detener el servidor.
+        $.ajax({
+            type: 'POST',
+            url: 'apagar_servidor.php',
+            data: JSON.stringify({ servidorId: servidorId }),
+            contentType: 'application/json',
+            success: function(response) {
+                var result = JSON.parse(response);
+                if (result.success) {
+                    // Ocultar los botones de "Iniciar" y "Eliminar"
+                    $('.boton-iniciar-servidor, .boton-parar-servidor').show();
+                    // Mostrar los botones de "Apagar" y "Reiniciar"
+                    $('.boton-apagar-servidor, .boton-reiniciar-servidor').hide();
+                    
+                    // Alerta de éxito con SweetAlert2
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Éxito',
+                        text: 'Servidor detenido correctamente',
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: 'Ok'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            cargarServidores(); // Recargar la lista de servidores.
+                        }
+                    });
+                } else {
+                    // Alerta de error con SweetAlert2
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'Error al detener el servidor: ' + result.message,
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: 'Ok'
+                    });
+                }
+            },
+            error: function() {
+                // Alerta de error de conexión con SweetAlert2
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error de conexión al servidor',
+                    text: 'Tu sesión ha expirado. Por favor, inicia sesión nuevamente.',
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'Ok'
+                });
+            }
+        });
+    }
+
+    // Función para reiniciar el servidor
+    function reiniciarServidor(servidorId) {
+        // Realizar una solicitud AJAX para reiniciar el servidor.
+        $.ajax({
+            type: 'POST',
+            url: 'reiniciar_servidor.php',
+            data: JSON.stringify({ servidorId: servidorId }),
+            contentType: 'application/json',
+            success: function(response) {
+                var result = JSON.parse(response);
+                if (result.success) {
+                    // Alerta de éxito con SweetAlert2
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Éxito',
+                        text: 'Servidor reiniciado correctamente',
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: 'Ok'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            cargarServidores(); // Recargar la lista de servidores.
+                        }
+                    });
+                } else {
+                    // Alerta de error con SweetAlert2
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'Error al reiniciar el servidor: ' + result.message,
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: 'Ok'
+                    });
+                }
+            },
+            error: function() {
+                // Alerta de error de conexión con SweetAlert2
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error de conexión al servidor',
+                    text: 'Tu sesión ha expirado. Por favor, inicia sesión nuevamente.',
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'Ok'
+                });
+            }
+        });
+    }
+
 
     // Función para guardar un nuevo servidor.
     function guardarNuevoServidor() {
@@ -314,6 +419,9 @@
                                 '<td class="centrar-boton" >' +
                                     '<button class="boton-iniciar-servidor" onclick="iniciarServidor(' + servidor.id + ')">Iniciar</button>' +
                                     '<button class="boton-parar-servidor" onclick="eliminarServidor(' + servidor.id + ')">Eliminar</button>' +
+
+                                    '<button class="boton-parar-servidor" onclick="apagarServidor(' + servidor.id + ')">Apagar</button>' +
+                                    '<button class="boton-reiniciar-servidor" onclick="reiniciarServidor(' + servidor.id + ')">Reiniciar</button>' +
                                 '</td>' +
                               '</tr>';
                     $('#tbodyServidores').append(row);

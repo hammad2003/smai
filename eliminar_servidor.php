@@ -48,7 +48,10 @@ if ($result->num_rows > 0) {
     $containerId = $result->fetch_assoc()['container_id'];
 
     // Detener y eliminar el contenedor Docker
-    shell_exec("sudo docker stop $containerId");
+    // shell_exec("sudo docker stop $containerId");
+    // shell_exec("sudo docker rm $containerId");
+
+    // Eliminar el contenedor Docker
     shell_exec("sudo docker rm $containerId");
 
     // Eliminar el servidor de la base de datos
