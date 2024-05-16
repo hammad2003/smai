@@ -19,7 +19,27 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             session_start();
             $_SESSION['id_usuario'] = $row['id']; // Guardar solo la ID del usuario
 
-            // Redirigir a la página de inicio
+            echo "success"; // Enviar respuesta de éxito
+        } else {
+            // Contraseña incorrecta
+            echo "Contraseña incorrecta. Por favor, verifica tu correo y contraseña.";
+        }
+    } else {
+        // Usuario no encontrado
+        echo "Usuario no encontrado. Por favor, verifica tu correo y contraseña.";
+    }
+
+    $stmt->close(); // Cerrar la consulta preparada
+} else {
+    // Si llega a este punto, probablemente se accedió a procesar_iniciar_sesion.php sin enviar el formulario
+    echo "Acceso no autorizado.";
+}
+?>
+
+
+
+
+            <!-- // Redirigir a la página de inicio
             header("Location: inicio.html");
             exit();
         
@@ -35,4 +55,4 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 // Si llega a este punto, probablemente se accedió a procesar_iniciar_sesion.php sin enviar el formulario
 echo "Acceso no autorizado.";
-?>
+?> -->

@@ -1,20 +1,22 @@
 <?php
 include 'config.php';
 
-// Procesar el formulario de registro
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["registro"])) {
-    $nombre = $_POST["nombre"];
-    $correo = $_POST["correo"];
-    $contrasena = password_hash($_POST["contrasena"], PASSWORD_DEFAULT);
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $nombre = $_POST['nombre'];
+    $correo = $_POST['correo'];
+    $contrasena = password_hash($_POST['contrasena'], PASSWORD_BCRYPT);
 
-    // Insertar nuevo usuario en la base de datos
-    $sql = "INSERT INTO usuarios (nombre, correo, contrasena) VALUES ('$nombre', '$correo', '$contrasena')";
-    if ($conn->query($sql) === TRUE) {
-        // Redirigir a la página de inicio de sesión
-        header("Location: index.html");
+    $sql = "INSERT INTO usuarios (nombre, correo, contrasena) VALUES (?, ?, ?)";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param('sss', $nombre, $correo, $contrasena);
+
+    if ($stmt->execute()) {
+        header('Location: index.html');
         exit();
     } else {
-        echo "<p>Error al registrar el usuario: " . $conn->error . "</p>";
+        echo "Error: " . $stmt->error;
     }
+
+    $stmt->close();
 }
 ?>
