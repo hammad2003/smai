@@ -35,24 +35,3 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     echo "Acceso no autorizado.";
 }
 ?>
-
-
-
-
-            <!-- // Redirigir a la página de inicio
-            header("Location: inicio.html");
-            exit();
-        
-        } else {
-            // Contraseña incorrecta, mostrar mensaje de error
-            echo "Credenciales inválidas. Por favor, verifica tu correo y contraseña.";
-        }
-    } else {
-        // Usuario no encontrado, mostrar mensaje de error
-        echo "Credenciales inválidas. Por favor, verifica tu correo y contraseña.";
-    }
-}
-
-// Si llega a este punto, probablemente se accedió a procesar_iniciar_sesion.php sin enviar el formulario
-echo "Acceso no autorizado.";
-?> -->
