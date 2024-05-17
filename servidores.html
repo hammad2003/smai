@@ -403,20 +403,22 @@
                     var botonesHTML = '';
 
                     // Determinar qué botones mostrar según el estado del servidor.
-                    if (servidor.estado === 'detenido') {
+                    if (servidor.estado === 'Detenido') {
                         botonesHTML = '<button class="boton-iniciar-servidor" onclick="iniciarServidor(' + servidor.id + ')">Iniciar</button>' +
                                       '<button class="boton-parar-servidor" onclick="eliminarServidor(' + servidor.id + ')">Eliminar</button>';
-                    } else if (servidor.estado === 'activo') {
+                    } else if (servidor.estado === 'Activo') {
                         botonesHTML = '<button class="boton-parar-servidor" onclick="apagarServidor(' + servidor.id + ')">Apagar</button>' +
                                       '<button class="boton-reiniciar-servidor" onclick="reiniciarServidor(' + servidor.id + ')">Reiniciar</button>';
                     }
+
+                    var direccionIPPuerto = servidor.ip_address + ':' + servidor.puerto;
 
                     var row = '<tr>' +
                                 '<td>' + servidor.id + '</td>' +
                                 '<td>' + servidor.nombre + '</td>' +
                                 '<td>' + servidor.software + '</td>' +
                                 '<td>' + servidor.version + '</td>' +
-                                '<td>' + servidor.ip_address + '</td>' +
+                                '<td>' + direccionIPPuerto + '</td>' +
                                 '<td>' + servidor.estado + '</td>' +
                                 '<td class="centrar-boton" >' +
                                     botonesHTML +

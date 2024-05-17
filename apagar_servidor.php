@@ -16,7 +16,7 @@ if ($result->num_rows > 0) {
     shell_exec("sudo docker stop $containerId");
 
     // Actualizar el estado del servidor en la base de datos
-    $updateQuery = "UPDATE servidores SET estado = 'detenido' WHERE id = $servidorId";
+    $updateQuery = "UPDATE servidores SET estado = 'Detenido' WHERE id = $servidorId";
     if ($conn->query($updateQuery) === TRUE) {
         // Respondemos que se ha detenido correctamente
         echo json_encode(array("success" => true));

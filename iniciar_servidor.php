@@ -33,8 +33,17 @@ if ($result->num_rows > 0) {
     $containerId = trim(shell_exec($comando));
 
     if ($containerId) {
+        // Obtener la dirección IP de la máquina host
+        $ipHost = trim(shell_exec("hostname -I | cut -d' ' -f1"));
+
+        // Concatenar la dirección IP y el puerto
+        $direccionIPPuerto = $ipHost . ":" . $puerto;
+
+
         // Guardar la ID del contenedor y actualizar el estado en la base de datos
-        $updateQuery = "UPDATE servidores SET container_id = '$containerId', estado = 'activo' WHERE id = $servidorId";
+        $updateQuery = "UPDATE servidores SET container_id = '$containerId',  ip_address = '$direccionIPPuerto', estado = 'Activo' WHERE id = $servidorId";
+
+        // $updateQuery = "UPDATE servidores SET container_id = '$containerId', estado = 'activo' WHERE id = $servidorId";
         if ($conn->query($updateQuery) === TRUE) {
             echo json_encode(array("success" => true));
         } else {
