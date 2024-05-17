@@ -109,6 +109,7 @@
                     <th>Software</th>
                     <th>Versión</th>
                     <th>Dirección IP</th>
+                    <th>Estado</th>
                     <th class="Acciones">Acciones</th>
                 </tr>
             </thead>
@@ -119,7 +120,7 @@
     </div>
 
     <!-- Elemento para mostrar el estado del servidor -->
-    <div id="estadoServidor"></div>
+    <!-- <div id="estadoServidor"></div> -->
 
 
 <script>
@@ -202,11 +203,6 @@
             success: function(response) {
                 var result = JSON.parse(response);
                 if (result.success) {
-                    // Ocultar los botones de "Iniciar" y "Eliminar"
-                    $('.boton-iniciar-servidor, .boton-parar-servidor').hide();
-                    // Mostrar los botones de "Apagar" y "Reiniciar"
-                    $('.boton-apagar-servidor, .boton-reiniciar-servidor').show();
-
                     // Alerta de éxito con SweetAlert2
                     Swal.fire({
                         icon: 'success',
@@ -302,12 +298,7 @@
             contentType: 'application/json',
             success: function(response) {
                 var result = JSON.parse(response);
-                if (result.success) {
-                    // Ocultar los botones de "Iniciar" y "Eliminar"
-                    $('.boton-iniciar-servidor, .boton-parar-servidor').show();
-                    // Mostrar los botones de "Apagar" y "Reiniciar"
-                    $('.boton-apagar-servidor, .boton-reiniciar-servidor').hide();
-                    
+                if (result.success) {                    
                     // Alerta de éxito con SweetAlert2
                     Swal.fire({
                         icon: 'success',
@@ -409,18 +400,26 @@
                 // Iterar sobre los servidores y agregarlos a la tabla.
                 for (var i = 0; i < servidores.length; i++) {
                     var servidor = servidores[i];
+                    var botonesHTML = '';
+
+                    // Determinar qué botones mostrar según el estado del servidor.
+                    if (servidor.estado === 'detenido') {
+                        botonesHTML = '<button class="boton-iniciar-servidor" onclick="iniciarServidor(' + servidor.id + ')">Iniciar</button>' +
+                                      '<button class="boton-parar-servidor" onclick="eliminarServidor(' + servidor.id + ')">Eliminar</button>';
+                    } else if (servidor.estado === 'activo') {
+                        botonesHTML = '<button class="boton-parar-servidor" onclick="apagarServidor(' + servidor.id + ')">Apagar</button>' +
+                                      '<button class="boton-reiniciar-servidor" onclick="reiniciarServidor(' + servidor.id + ')">Reiniciar</button>';
+                    }
+
                     var row = '<tr>' +
                                 '<td>' + servidor.id + '</td>' +
                                 '<td>' + servidor.nombre + '</td>' +
                                 '<td>' + servidor.software + '</td>' +
                                 '<td>' + servidor.version + '</td>' +
-                                '<td>' + servidor.ip_address + '</td>' + // Mostrar la dirección IP almacenada
+                                '<td>' + servidor.ip_address + '</td>' +
+                                '<td>' + servidor.estado + '</td>' +
                                 '<td class="centrar-boton" >' +
-                                    '<button class="boton-iniciar-servidor" onclick="iniciarServidor(' + servidor.id + ')">Iniciar</button>' +
-                                    '<button class="boton-parar-servidor" onclick="eliminarServidor(' + servidor.id + ')">Eliminar</button>' +
-
-                                    '<button class="boton-parar-servidor" onclick="apagarServidor(' + servidor.id + ')">Apagar</button>' +
-                                    '<button class="boton-reiniciar-servidor" onclick="reiniciarServidor(' + servidor.id + ')">Reiniciar</button>' +
+                                    botonesHTML +
                                 '</td>' +
                               '</tr>';
                     $('#tbodyServidores').append(row);

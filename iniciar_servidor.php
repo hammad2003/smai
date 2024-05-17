@@ -29,15 +29,19 @@ if ($result->num_rows > 0) {
     
     $comando .= " itzg/minecraft-server";
 
-    $output = shell_exec($comando);
+    // Ejecutar el comando y obtener la ID del contenedor
+    $containerId = trim(shell_exec($comando));
 
-    // Guardar la ID del contenedor en la base de datos
-    $containerId = trim($output);
-    $query = "UPDATE servidores SET container_id = '$containerId' WHERE id = $servidorId";
-    if ($conn->query($query) === TRUE) {
-        echo json_encode(array("success" => true));
+    if ($containerId) {
+        // Guardar la ID del contenedor y actualizar el estado en la base de datos
+        $updateQuery = "UPDATE servidores SET container_id = '$containerId', estado = 'activo' WHERE id = $servidorId";
+        if ($conn->query($updateQuery) === TRUE) {
+            echo json_encode(array("success" => true));
+        } else {
+            echo json_encode(array("success" => false, "message" => "Error al actualizar la base de datos"));
+        }
     } else {
-        echo json_encode(array("success" => false, "message" => "Error al actualizar la base de datos"));
+        echo json_encode(array("success" => false, "message" => "Error al iniciar el servidor Docker"));
     }
 } else {
     echo json_encode(array("success" => false, "message" => "Servidor no encontrado"));

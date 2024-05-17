@@ -15,8 +15,15 @@ if ($result->num_rows > 0) {
     // Detener el contenedor Docker
     shell_exec("sudo docker stop $containerId");
 
-    // Respondemos que se ha detenido correctamente
-    echo json_encode(array("success" => true));
+    // Actualizar el estado del servidor en la base de datos
+    $updateQuery = "UPDATE servidores SET estado = 'detenido' WHERE id = $servidorId";
+    if ($conn->query($updateQuery) === TRUE) {
+        // Respondemos que se ha detenido correctamente
+        echo json_encode(array("success" => true));
+    } else {
+        // Error al actualizar el estado
+        echo json_encode(array("success" => false, "message" => "Error al actualizar el estado del servidor: " . $conn->error));
+    }
 } else {
     echo json_encode(array("success" => false, "message" => "Servidor no encontrado"));
 }
