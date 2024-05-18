@@ -12,45 +12,58 @@ $result = $conn->query($query);
 if ($result->num_rows > 0) {
     $servidor = $result->fetch_assoc();
 
-    // Generar un puerto único para el servidor (por ejemplo, basado en el ID)
-    $puerto = 25565 + $servidorId;
+    // Verificar si el contenedor ya ha sido creado
+    if (empty($servidor['container_id'])) {
+        // Generar un puerto único para el servidor (por ejemplo, basado en el ID)
+        $puerto = 25565 + $servidorId;
 
-    // Ejecutar el comando Docker para iniciar el servidor
-    $comando = "sudo docker run -d -it -p $puerto:25565 -e EULA=TRUE -e VERSION={$servidor['version']}";
-    if ($servidor['software'] === 'Forge') {
-        $comando .= " -e TYPE=FORGE";
-    } elseif ($servidor['software'] === 'Forge') {
-        $comando .= " -e TYPE=FORGE";
-    } elseif ($servidor['software'] === 'Spigot') {
-        $comando .= " -e TYPE=SPIGOT";
-    } elseif ($servidor['software'] === 'Bukkit') {
-        $comando .= " -e TYPE=BUKKIT";
-    } 
-    
-    $comando .= " itzg/minecraft-server";
+        // Construir el comando Docker para crear el contenedor
+        $comando = "sudo docker run -d -it -p $puerto:25565 -e EULA=TRUE -e ONLINE_MODE=FALSE -e VERSION={$servidor['version']}";
+        if ($servidor['software'] === 'Forge') {
+            $comando .= " -e TYPE=FORGE";
+        } elseif ($servidor['software'] === 'Spigot') {
+            $comando .= " -e TYPE=SPIGOT";
+        } elseif ($servidor['software'] === 'Bukkit') {
+            $comando .= " -e TYPE=BUKKIT";
+        }
 
-    // Ejecutar el comando y obtener la ID del contenedor
-    $containerId = trim(shell_exec($comando));
+        $comando .= " itzg/minecraft-server";
 
-    if ($containerId) {
-        // Obtener la dirección IP de la máquina host
-        $ipHost = trim(shell_exec("hostname -I | cut -d' ' -f1"));
+        // Ejecutar el comando y obtener la ID del contenedor
+        $containerId = trim(shell_exec($comando));
 
-        // Concatenar la dirección IP y el puerto
-        $direccionIPPuerto = $ipHost . ":" . $puerto;
+        if ($containerId) {
+            // Obtener la dirección IP de la máquina host
+            $ip_address = trim(shell_exec("hostname -I | cut -d' ' -f1"));
 
-
-        // Guardar la ID del contenedor y actualizar el estado en la base de datos
-        $updateQuery = "UPDATE servidores SET container_id = '$containerId',  ip_address = '$direccionIPPuerto', estado = 'Activo' WHERE id = $servidorId";
-
-        // $updateQuery = "UPDATE servidores SET container_id = '$containerId', estado = 'activo' WHERE id = $servidorId";
-        if ($conn->query($updateQuery) === TRUE) {
-            echo json_encode(array("success" => true));
+            // Guardar la ID del contenedor y actualizar el estado en la base de datos
+            $updateQuery = "UPDATE servidores SET container_id = '$containerId', ip_address = '$ip_address', puerto = '$puerto', estado = 'Activo' WHERE id = $servidorId";
+            if ($conn->query($updateQuery) === TRUE) {
+                echo json_encode(array("success" => true));
+            } else {
+                echo json_encode(array("success" => false, "message" => "Error al actualizar la base de datos"));
+            }
         } else {
-            echo json_encode(array("success" => false, "message" => "Error al actualizar la base de datos"));
+            echo json_encode(array("success" => false, "message" => "Error al iniciar el servidor Docker"));
         }
     } else {
-        echo json_encode(array("success" => false, "message" => "Error al iniciar el servidor Docker"));
+        // Contenedor ya existe, usar docker start
+        $containerId = $servidor['container_id'];
+        $comando = "sudo docker start $containerId";
+        $resultado = shell_exec($comando);
+
+        if (strpos($resultado, $containerId) !== false) {
+            // Actualizar el estado del servidor en la base de datos
+            $updateQuery = "UPDATE servidores SET estado = 'Activo' WHERE id = $servidorId";
+
+            if ($conn->query($updateQuery) === TRUE) {
+                echo json_encode(array("success" => true));
+            } else {
+                echo json_encode(array("success" => false, "message" => "Error al actualizar la base de datos"));
+            }
+        } else {
+            echo json_encode(array("success" => false, "message" => "Error al iniciar el contenedor Docker"));
+        }
     }
 } else {
     echo json_encode(array("success" => false, "message" => "Servidor no encontrado"));
