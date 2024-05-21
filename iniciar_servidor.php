@@ -18,7 +18,7 @@ if ($result->num_rows > 0) {
         $puerto = 25565 + $servidorId;
 
         // Construir el comando Docker para crear el contenedor
-        $comando = "sudo docker run -d -it -p $puerto:25565 -e EULA=TRUE -e ONLINE_MODE=FALSE -e VERSION={$servidor['version']}";
+        $comando = "sudo docker run -d -it -p $puerto:25565 -e EULA=TRUE -e ONLINE_MODE=FALSE -e ICON=https://github.com/hammad2003/smai/blob/master/Img/MacacoSmai.png?raw=true -e VERSION={$servidor['version']}";
         if ($servidor['software'] === 'Forge') {
             $comando .= " -e TYPE=FORGE";
         } elseif ($servidor['software'] === 'Spigot') {
