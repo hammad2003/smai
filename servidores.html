@@ -6,8 +6,12 @@
     <title>Lista de Servidores</title>
     <link rel="stylesheet" href="css/servidores.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/notyf/notyf.min.js"></script>
 </head>
 
 <body>
@@ -194,8 +198,28 @@
         }
 
 
+
+
+        // Crear una instancia de Notyf
+        const notyf = new Notyf({
+            duration: 0, // Notificación permanece hasta ser cerrada manualmente
+            dismissible: false,
+            position: {
+                x: 'center',
+                y: 'center',
+            },
+            types: [
+                {
+                    type: 'custom',
+                    background: '#fff',
+                    className: 'notyf-custom',
+                    icon: false
+                }
+            ]
+        });
+
         // Función para iniciar un nuevo servidor.
-        function iniciarServidor(servidorId) {
+        function iniciarServidorConLogs(servidorId) {
             // Mostrar alerta de carga
             Swal.fire({
                 title: 'Iniciando el servidor...',
@@ -205,6 +229,15 @@
                     Swal.showLoading();
                 }
             });
+
+            // Mostrar Notyf para los logs
+            const logNotification = notyf.open({
+                type: 'custom',
+                message: '<div id="logsContainer"></div>',
+            });
+
+            // Abrir los logs en el div dentro de la notificación Notyf
+            abrirLogsEnDiv(servidorId);
 
             // Enviar solicitud AJAX para iniciar el servidor.
             $.ajax({
@@ -241,6 +274,8 @@
                                 confirmButtonText: 'Ok'
                             });
                         }
+                        // Ocultar Notyf después de 60 segundos
+                        notyf.dismiss(logNotification);
                     }, 60000); // Mostrar resultado después de 60 segundos
                 },
                 error: function () {
@@ -253,6 +288,39 @@
                         confirmButtonColor: '#3085d6',
                         confirmButtonText: 'Ok'
                     });
+                    // Ocultar Notyf en caso de error
+                    notyf.dismiss(logNotification);
+                }
+            });
+        }
+
+        // Función para abrir los logs en un div y actualizarlos periódicamente
+        function abrirLogsEnDiv(servidorId) {
+            // Función para obtener los logs y actualizar el contenido del div
+            function obtenerYActualizarLogs() {
+                obtenerLogs(servidorId); // Obtener los logs
+            }
+
+            // Iniciar la actualización de logs
+            var intervalID = setInterval(obtenerYActualizarLogs, 100);
+
+            // Detener la actualización de logs después de 60 segundos
+            setTimeout(function () {
+                clearInterval(intervalID);
+            }, 60000);
+        }
+
+        // Función para obtener los logs y actualizar el contenido del div
+        function obtenerLogs(servidorId) {
+            $.ajax({
+                type: 'GET',
+                url: 'logs.php',
+                data: { servidorId: servidorId },
+                success: function (response) {
+                    $('#logsContainer').html(response);
+                },
+                error: function () {
+                    $('#logsContainer').html('Error al obtener los logs.');
                 }
             });
         }
@@ -472,11 +540,17 @@
 
                         // Determinar qué botones mostrar según el estado del servidor.
                         if (servidor.estado === 'Detenido') {
-                            botonesHTML = '<button class="boton-iniciar-servidor" onclick="iniciarServidor(' + servidor.id + ')">Iniciar</button>' +
-                                '<button class="boton-parar-servidor" onclick="eliminarServidor(' + servidor.id + ')">Eliminar</button>';
+                            botonesHTML = '<button class="boton-iniciar-servidor" onclick="iniciarServidorConLogs(' + servidor.id + ')"> <i class="fas fa-play-circle"></i> Iniciar</button>' +
+                                '<button class="boton-eliminar-parar-servidor" onclick="eliminarServidor(' + servidor.id + ')"> <i class="fas fa-trash-alt"></i> </button>';
                         } else if (servidor.estado === 'Activo') {
-                            botonesHTML = '<button class="boton-parar-servidor" onclick="apagarServidor(' + servidor.id + ')">Apagar</button>' +
-                                '<button class="boton-reiniciar-servidor" onclick="reiniciarServidor(' + servidor.id + ')">Reiniciar</button>';
+                            botonesHTML = '<button class="boton-eliminar-parar-servidor" onclick="apagarServidor(' + servidor.id + ')"> <i class="fas fa-power-off"></i> Apagar</button>' +
+                                '<button class="boton-reiniciar-servidor" onclick="reiniciarServidor(' + servidor.id + ')"> <i class="fas fa-sync-alt"></i> Reiniciar</button>' +
+                                '<button class="boton-consola-servidor" onclick="consolaServidor(' + servidor.id + ')"> <i class="fas fa-terminal"></i> </button>';
+                            if (servidor.software === 'Forge') {
+                                botonesHTML += '<button class="boton-iniciar-servidor" onclick="mostrarVentanaSubirArchivos(' + servidor.id + ')"><i class="fas fa-cloud-upload-alt"></i> Mods </button>';
+                            } else if (servidor.software === 'Bukkit' || servidor.software === 'Spigot') {
+                                botonesHTML += '<button class="boton-iniciar-servidor" onclick="mostrarVentanaSubirArchivos(' + servidor.id + ')"><i class="fas fa-cloud-upload-alt"></i> Plugins</button>';
+                            }
                         }
 
                         var direccionIPPuerto = servidor.ip_address + ':' + servidor.puerto;
