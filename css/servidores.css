@@ -99,6 +99,10 @@ button {
 .Acciones {
    text-align: center !important;
  }
+
+ .centrar-boton{
+   text-align: center !important;
+ }
  
 .boton-iniciar-servidor {
    background-color: #4caf50;
@@ -118,7 +122,7 @@ button {
    background-color: #45a049;
  }
  
- .boton-parar-servidor {
+ .boton-eliminar-parar-servidor {
    background-color: #f62451;
    color: white;
    border: none;
@@ -154,6 +158,82 @@ button {
    background-color: #2b87d3;
  }
 
- .centrar-boton{
-   text-align: center !important;
+ .boton-consola-servidor {
+   background-color: black;
+   color: white;
+   border: none;
+   padding: 8px 16px;
+   text-align: center;
+   text-decoration: none;
+   display: inline-block;
+   font-size: 16px;
+   margin: 4px 2px;
+   cursor: pointer;
+   border-radius: 4px;
  }
+ 
+ .boton-consola-servidor:hover {
+   background-color: black;
+ }
+
+/* Animaciones de Notyf */
+@-webkit-keyframes notyf-fadeinup {
+   0% { opacity: 0; transform: translateY(25%); }
+   to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes notyf-fadeinup {
+   0% { opacity: 0; transform: translateY(25%); }
+   to { opacity: 1; transform: translateY(0); }
+}
+
+@-webkit-keyframes notyf-fadeoutdown {
+   0% { opacity: 1; transform: translateY(0); }
+   to { opacity: 0; transform: translateY(25%); }
+}
+
+@keyframes notyf-fadeoutdown {
+   0% { opacity: 1; transform: translateY(0); }
+   to { opacity: 0; transform: translateY(25%); }
+}
+
+.notyf {
+   position: fixed;
+   top: -143px;
+   left: 0;
+   right: 0;
+   z-index: 10000;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   height: 100vh;
+   pointer-events: none;
+   box-sizing: border-box;
+}
+
+.notyf__toast {
+   background-color: black;
+   color: white;
+   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+   border-radius: 5px;
+   padding: 15px 20px;
+   text-align: center;
+   align-items: center;
+   justify-content: center;
+   -webkit-animation: notyf-fadeinup .3s ease-in forwards;
+   animation: notyf-fadeinup .3s ease-in forwards;
+   transform: translateY(20%); /* Mover hacia arriba */
+   box-sizing: border-box;
+}
+
+.notyf__toast--disappear {
+   transform: translateY(0);
+   -webkit-animation: notyf-fadeoutdown .3s forwards;
+   animation: notyf-fadeoutdown .3s forwards;
+   -webkit-animation-delay: .25s;
+   animation-delay: .25s;
+}
+
+.notyf__dismiss-btn {
+   display: none;
+}
