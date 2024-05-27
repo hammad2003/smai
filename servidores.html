@@ -104,6 +104,12 @@
         <button class='button2' onclick="cerrarFormulario()">Cerrar</button>
     </div>
 
+    <!-- Div precreado para la consola -->
+    <div id="consoleWindow" class="console-window">
+        <button id="closeButton" class="close-button"><i class="fas fa-times"></i></button>
+        <div id="consoleContent" class="console-content"></div>
+    </div>
+
     <!-- Lista de Servidores -->
     <div id="listaServidores">
         <h2>Lista de Servidores</h2>
@@ -124,7 +130,8 @@
             </tbody>
         </table>
     </div>
-
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         // Función para mostrar el formulario de nuevo servidor y ocultar el botón
         function mostrarFormulario() {
@@ -233,7 +240,7 @@
             // Mostrar Notyf para los logs
             const logNotification = notyf.open({
                 type: 'custom',
-                message: '<div id="logsContainer"></div>',
+                message: '<div id="logsContainer"><i class="fas fa-terminal"></i></div>',
             });
 
             // Abrir los logs en el div dentro de la notificación Notyf
@@ -302,7 +309,7 @@
             }
 
             // Iniciar la actualización de logs
-            var intervalID = setInterval(obtenerYActualizarLogs, 100);
+            var intervalID = setInterval(obtenerYActualizarLogs, 1000);
 
             // Detener la actualización de logs después de 60 segundos
             setTimeout(function () {
@@ -518,6 +525,56 @@
         }
 
 
+        // Enviar solicitud AJAX para vel la consola del servidor
+        function consolaServidor(servidorId) {
+            // Mostrar el div de la consola
+            var consoleWindow = document.getElementById('consoleWindow');
+            consoleWindow.style.display = 'block';
+
+            // Obtener el div del contenido
+            var consoleContent = document.getElementById('consoleContent');
+
+            // Función para actualizar el contenido del div.
+            function actualizarContenidoConsola() {
+                // Realizar una solicitud AJAX para obtener el contenido de latest.log.
+                $.ajax({
+                    type: 'GET',
+                    url: 'consola.php', // Ruta al archivo PHP que maneja la lectura de latest.log
+                    data: { servidorId: servidorId },
+                    success: function (response) {
+                        // Actualizar el contenido del div emergente con el contenido de latest.log.
+                        consoleContent.innerHTML = response;
+
+                        // Desplazarse automáticamente hacia abajo después de agregar el nuevo contenido
+                        consoleContent.scrollTop = consoleContent.scrollHeight;
+                    },
+                    error: function () {
+                        // En caso de error, mostrar un mensaje en el div emergente.
+                        consoleContent.textContent = 'Error al obtener el contenido de latest.log';
+                        // Mostrar alerta de error
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: 'Error al obtener el contenido de latest.log',
+                            allowOutsideClick: false,
+                            confirmButtonColor: '#3085d6',
+                            confirmButtonText: 'Ok'
+                        });
+                    }
+                });
+            }
+
+            // Llamar a la función para actualizar el contenido del div cada segundo.
+            var intervalId = setInterval(actualizarContenidoConsola, 1000);
+
+            // Cerrar la consola al hacer clic en el botón de cerrar
+            document.getElementById('closeButton').onclick = function() {
+                consoleWindow.style.display = 'none';
+                clearInterval(intervalId);
+            };
+        }
+
+
 
 
         // Función para cargar los servidores desde el servidor.
@@ -540,17 +597,20 @@
 
                         // Determinar qué botones mostrar según el estado del servidor.
                         if (servidor.estado === 'Detenido') {
-                            botonesHTML = '<button class="boton-iniciar-servidor" onclick="iniciarServidorConLogs(' + servidor.id + ')"> <i class="fas fa-play-circle"></i> Iniciar</button>' +
-                                '<button class="boton-eliminar-parar-servidor" onclick="eliminarServidor(' + servidor.id + ')"> <i class="fas fa-trash-alt"></i> </button>';
+                            botonesHTML = '<button class="boton-iniciar-servidor" onclick="iniciarServidorConLogs(' + servidor.id + ')"><i class="fas fa-play-circle"></i> Iniciar</button>' +
+                                '<button class="boton-eliminar-parar-servidor" onclick="eliminarServidor(' + servidor.id + ')"><i class="fas fa-trash-alt"></i></button>';
+
                         } else if (servidor.estado === 'Activo') {
                             botonesHTML = '<button class="boton-eliminar-parar-servidor" onclick="apagarServidor(' + servidor.id + ')"> <i class="fas fa-power-off"></i> Apagar</button>' +
-                                '<button class="boton-reiniciar-servidor" onclick="reiniciarServidor(' + servidor.id + ')"> <i class="fas fa-sync-alt"></i> Reiniciar</button>' +
-                                '<button class="boton-consola-servidor" onclick="consolaServidor(' + servidor.id + ')"> <i class="fas fa-terminal"></i> </button>';
+                                '<button class="boton-reiniciar-servidor" onclick="reiniciarServidor(' + servidor.id + ')"><i class="fas fa-sync-alt"></i></button>';
+
                             if (servidor.software === 'Forge') {
-                                botonesHTML += '<button class="boton-iniciar-servidor" onclick="mostrarVentanaSubirArchivos(' + servidor.id + ')"><i class="fas fa-cloud-upload-alt"></i> Mods </button>';
+                                botonesHTML += '<button class="boton-iniciar-servidor" onclick="mostrarVentanaSubirArchivos(' + servidor.id + ')"><i class="fas fa-file-upload"></i></button>';
                             } else if (servidor.software === 'Bukkit' || servidor.software === 'Spigot') {
-                                botonesHTML += '<button class="boton-iniciar-servidor" onclick="mostrarVentanaSubirArchivos(' + servidor.id + ')"><i class="fas fa-cloud-upload-alt"></i> Plugins</button>';
+                                botonesHTML += '<button class="boton-iniciar-servidor" onclick="mostrarVentanaSubirArchivos(' + servidor.id + ')"><i class="fas fa-file-upload"></i></button>';
                             }
+
+                            botonesHTML += '<button class="boton-consola-servidor" onclick="consolaServidor(' + servidor.id + ')"><i class="fas fa-terminal"></i></button>';
                         }
 
                         var direccionIPPuerto = servidor.ip_address + ':' + servidor.puerto;
