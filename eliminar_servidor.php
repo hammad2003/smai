@@ -47,12 +47,11 @@ $result = $conn->query($query);
 if ($result->num_rows > 0) {
     $containerId = $result->fetch_assoc()['container_id'];
 
-    // Detener y eliminar el contenedor Docker
-    // shell_exec("sudo docker stop $containerId");
-    // shell_exec("sudo docker rm $containerId");
-
     // Eliminar el contenedor Docker
     shell_exec("sudo docker rm $containerId");
+
+    // Eliminar los volúmenes Docker no utilizados
+    shell_exec("sudo docker volume prune -f");
 
     // Eliminar el servidor de la base de datos
     $query = "DELETE FROM servidores WHERE id = $servidorId";
