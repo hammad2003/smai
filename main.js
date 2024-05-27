@@ -6,7 +6,6 @@ fetch("./menu.html")
   document.querySelector("menu").innerHTML = data;
 });
 
-
 fetch("./footer.html")
     .then(response => {
       return response.text()
