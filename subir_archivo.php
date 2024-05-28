@@ -32,12 +32,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Definir el directorio de destino en función del software del servidor
         switch ($software) {
             case 'Forge':
-                $directorioDestino = "/var/www/smai/mods";
+                $directorioDestino = "/var/www/html/mods";
                 $directorioDestinoContenedor = "/data/mods/";
                 break;
             case 'Spigot':
             case 'Bukkit':
-                $directorioDestino = "/var/www/smai/plugins";
+                $directorioDestino = "/var/www/html/plugins";
                 $directorioDestinoContenedor = "/data/plugins/";
                 break;
             default:
