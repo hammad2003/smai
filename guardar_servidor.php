@@ -50,10 +50,20 @@ if ($stmt->execute()) {
     // Extraer y asignar valores por defecto o proporcionados para las propiedades avanzadas
     $maxPlayers = isset($data->maxPlayers) ? (int)$data->maxPlayers : 20; 
     $difficulty = isset($data->difficulty) ? $conn->real_escape_string($data->difficulty) : 'easy';
+    $mode = isset($data->mode) ? $conn->real_escape_string($data->mode) : 'survival';
+    $maxBuildHeight = isset($data->maxBuildHeight) ? (int)$data->maxBuildHeight : 256;
+    $viewDistance = isset($data->viewDistance) ? (int)$data->viewDistance : 10;
+    $spawnNpcs = isset($data->spawnNpcs) ? (bool)$data->spawnNpcs : true;
+    $allowNether = isset($data->allowNether) ? (bool)$data->allowNether : true;
+    $spawnAnimals = isset($data->spawnAnimals) ? (bool)$data->spawnAnimals : true;
+    $spawnMonsters = isset($data->spawnMonsters) ? (bool)$data->spawnMonsters : true;
+    $pvp = isset($data->pvp) ? (bool)$data->pvp : true;
+    $enableCommandBlock = isset($data->enableCommandBlock) ? (bool)$data->enableCommandBlock : false;
+    $allowFlight = isset($data->allowFlight) ? (bool)$data->allowFlight : true;
 
     // Insertar datos en la tabla 'server_properties'
-    $stmt = $conn->prepare("INSERT INTO server_properties (servidor_id, max_players, difficulty) VALUES (?, ?, ?)");
-    $stmt->bind_param('iis', $servidorId, $maxPlayers, $difficulty);
+    $stmt = $conn->prepare("INSERT INTO server_properties (server_id, max_players, difficulty, mode, max_build_height, view_distance, spawn_npcs, allow_nether, spawn_animals, spawn_monsters, pvp, enable_command_block, allow_flight) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    $stmt->bind_param('iissiiiiiiiii', $servidorId, $maxPlayers, $difficulty, $mode, $maxBuildHeight, $viewDistance, $spawnNpcs, $allowNether, $spawnAnimals, $spawnMonsters, $pvp, $enableCommandBlock, $allowFlight);
 
     if ($stmt->execute()) {
         // Incrementar el contador de servidores del usuario

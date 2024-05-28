@@ -18,16 +18,37 @@ if ($result->num_rows > 0) {
         $puerto = 25565 + $servidorId;
 
         // Obtener las propiedades avanzadas del servidor
-        $queryProperties = "SELECT * FROM server_properties WHERE servidor_id = $servidorId";
+        $queryProperties = "SELECT * FROM server_properties WHERE server_id = $servidorId";
         $resultProperties = $conn->query($queryProperties);
 
         $maxPlayers = 20;  // valor por defecto
         $difficulty = 'easy';  // valor por defecto
+        $mode = 'survival'; // valor por defecto
+        $maxBuildHeight = 256; // valor por defecto
+        $viewDistance = 10; // valor por defecto
+        $spawnNpcs = true; // valor por defecto
+        $allowNether = true; // valor por defecto
+        $spawnAnimals = true; // valor por defecto
+        $spawnMonsters = true; // valor por defecto
+        $pvp = true; // valor por defecto
+        $enableCommandBlock = false; // valor por defecto
+        $allowFlight = true; // valor por defecto
 
         if ($resultProperties->num_rows > 0) {
             $properties = $resultProperties->fetch_assoc();
             $maxPlayers = $properties['max_players'];
             $difficulty = $properties['difficulty'];
+            $difficulty = $properties['difficulty'];
+            $mode = $properties['mode'];
+            $maxBuildHeight = $properties['max_build_height'];
+            $viewDistance = $properties['view_distance'];
+            $spawnNpcs = $properties['spawn_npcs'];
+            $allowNether = $properties['allow_nether'];
+            $spawnAnimals = $properties['spawn_animals'];
+            $spawnMonsters = $properties['spawn_monsters'];
+            $pvp = $properties['pvp'];
+            $enableCommandBlock = $properties['enable_command_block'];
+            $allowFlight = $properties['allow_flight'];
         }
 
         // Construir el comando Docker para crear el contenedor
@@ -39,6 +60,36 @@ if ($result->num_rows > 0) {
         }
         if ($difficulty != 'easy') {
             $comando .= " -e DIFFICULTY=$difficulty";
+        }
+        if ($mode != 'survival') {
+            $comando .= " -e MODE=$mode";
+        }
+        if ($maxBuildHeight != 256) {
+            $comando .= " -e MAX_BUILD_HEIGHT=$maxBuildHeight";
+        }
+        if ($viewDistance != 10) {
+            $comando .= " -e VIEW_DISTANCE=$viewDistance";
+        }
+        if ($spawnNpcs != true) {
+            $comando .= " -e SPAWN_NPCS=$spawnNpcs";
+        }
+        if ($allowNether != true) {
+            $comando .= " -e ALLOW_NETHER=$allowNether";
+        }
+        if ($spawnAnimals != true) {
+            $comando .= " -e SPAWN_ANIMALS=$spawnAnimals";
+        }
+        if ($spawnMonsters != true) {
+            $comando .= " -e SPAWN_MONSTERS=$spawnMonsters";
+        }
+        if ($pvp != true) {
+            $comando .= " -e PVP=$pvp";
+        }
+        if ($enableCommandBlock != false) {
+            $comando .= " -e ENABLE_COMMAND_BLOCK=$enableCommandBlock";
+        }
+        if ($allowFlight != true) {
+            $comando .= " -e ALLOW_FLIGHT=$allowFlight";
         }
 
         if ($servidor['software'] === 'Forge') {

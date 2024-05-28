@@ -15,7 +15,7 @@ if ($result->num_rows > 0) {
     $idUsuario = $row['id_usuario'];
 
     // Eliminar la entrada en la tabla 'server_properties' asociada al servidor
-    $delete_properties_query = "DELETE FROM server_properties WHERE servidor_id = $servidorId";
+    $delete_properties_query = "DELETE FROM server_properties WHERE server_id = $servidorId"; // Corregido el nombre de la columna
     if ($conn->query($delete_properties_query) === FALSE) {
         echo json_encode(array("success" => false, "message" => "Error al eliminar las propiedades del servidor"));
         exit();
