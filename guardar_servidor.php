@@ -1,56 +1,78 @@
 <?php
 include 'config.php';
+session_start();
 
-// Obtener datos del cuerpo de la solicitud.
-$data = json_decode(file_get_contents("php://input"));
-
-// Validar datos (puedes agregar más validaciones según tus requisitos).
-if (empty($data->nombreServidor) || empty($data->software) || empty($data->version)) {
-    echo json_encode(['success' => false, 'message' => 'Todos los campos son obligatorios']);
+// Función para enviar respuestas JSON
+function enviarRespuesta($success, $message, $extra = []) {
+    echo json_encode(array_merge(['success' => $success, 'message' => $message], $extra));
     exit();
 }
 
-// Obtener la ID del usuario desde la sesión del usuario
-session_start();
-$idUsuario = $_SESSION['id_usuario']; // Asegúrate de usar el nombre correcto de la clave de sesión
+// Obtener datos del cuerpo de la solicitud
+$data = json_decode(file_get_contents("php://input"));
 
-// Obtener la cantidad actual de servidores del usuario
-$sql = "SELECT COUNT(id) AS cantidad FROM servidores WHERE id_usuario = '$idUsuario'";
-$result = $conn->query($sql);
+// Validar datos básicos
+if (empty($data->nombreServidor) || empty($data->software) || empty($data->version)) {
+    enviarRespuesta(false, 'Todos los campos son obligatorios');
+}
+
+// Validar sesión de usuario
+if (!isset($_SESSION['id_usuario'])) {
+    enviarRespuesta(false, 'Usuario no autenticado');
+}
+$idUsuario = $_SESSION['id_usuario'];
+
+// Preparar y ejecutar consulta para contar servidores
+$stmt = $conn->prepare("SELECT COUNT(id) AS cantidad FROM servidores WHERE id_usuario = ?");
+$stmt->bind_param('i', $idUsuario);
+$stmt->execute();
+$result = $stmt->get_result();
 $row = $result->fetch_assoc();
 $cantidad_servidores = $row['cantidad'];
 
 // Verificar si el usuario ha alcanzado el límite de servidores
 if ($cantidad_servidores >= 4) {
-    echo json_encode(['success' => false, 'message' => 'Has alcanzado el límite de servidores. No puedes crear más.']);
-    exit();
+    enviarRespuesta(false, 'Has alcanzado el límite de servidores. No puedes crear más.');
 }
 
-// Extraer datos.
+// Extraer y sanitizar datos
 $nombreServidor = $conn->real_escape_string($data->nombreServidor);
 $software = $conn->real_escape_string($data->software);
 $version = $conn->real_escape_string($data->version);
 
-// Insertar datos en la base de datos.
-$sql = "INSERT INTO servidores (nombre, software, version, id_usuario) VALUES ('$nombreServidor', '$software', '$version', '$idUsuario')";
+// Insertar datos básicos en la tabla 'servidores'
+$stmt = $conn->prepare("INSERT INTO servidores (nombre, software, version, id_usuario) VALUES (?, ?, ?, ?)");
+$stmt->bind_param('sssi', $nombreServidor, $software, $version, $idUsuario);
 
-if ($conn->query($sql) === TRUE) {
-    // Incrementar el contador de servidores del usuario
-    $cantidad_servidores++;
-    $sql_update = "UPDATE usuarios SET servidores_creados = '$cantidad_servidores' WHERE id = '$idUsuario'";
+if ($stmt->execute()) {
+    $servidorId = $stmt->insert_id; // Obtener el ID del servidor recién creado
     
-    // Actualizar el campo servidores_creados en la tabla usuarios
-    if ($conn->query($sql_update) === FALSE) {
-        echo json_encode(['success' => false, 'message' => 'Error al actualizar el contador de servidores creados: ' . $conn->error]);
-        exit();
-    
+    // Extraer y asignar valores por defecto o proporcionados para las propiedades avanzadas
+    $maxPlayers = isset($data->maxPlayers) ? (int)$data->maxPlayers : 20; 
+    $difficulty = isset($data->difficulty) ? $conn->real_escape_string($data->difficulty) : 'easy';
+
+    // Insertar datos en la tabla 'server_properties'
+    $stmt = $conn->prepare("INSERT INTO server_properties (servidor_id, max_players, difficulty) VALUES (?, ?, ?)");
+    $stmt->bind_param('iis', $servidorId, $maxPlayers, $difficulty);
+
+    if ($stmt->execute()) {
+        // Incrementar el contador de servidores del usuario
+        $cantidad_servidores++;
+        $stmt = $conn->prepare("UPDATE usuarios SET servidores_creados = ? WHERE id = ?");
+        $stmt->bind_param('ii', $cantidad_servidores, $idUsuario);
+
+        if ($stmt->execute()) {
+            enviarRespuesta(true, 'Datos guardados correctamente.', ['cantidad_servidores' => $cantidad_servidores]);
+        } else {
+            enviarRespuesta(false, 'Error al actualizar el contador de servidores creados: ' . $conn->error);
+        }
+    } else {
+        enviarRespuesta(false, 'Error al guardar propiedades del servidor: ' . $conn->error);
     }
-    
-    echo json_encode(['success' => true, 'message' => 'Datos guardados correctamente.', 'cantidad_servidores' => $cantidad_servidores]);
 } else {
-    echo json_encode(['success' => false, 'message' => 'Error al guardar datos: ' . $conn->error]);
+    enviarRespuesta(false, 'Error al guardar datos: ' . $conn->error);
 }
 
-// Cierra la conexión a la base de datos.
+// Cerrar la conexión a la base de datos
 $conn->close();
 ?>

@@ -71,6 +71,29 @@ button {
    background-color: #45a049;
 } */
 
+#toggleOpcionesAvanzadas {
+   cursor: pointer;
+   display: flex;
+   align-items: center;
+   margin-top: 15px;
+   padding: 8px 12px; /* Añadido para un mejor aspecto */
+   border-radius: 5px; /* Añadido para un mejor aspecto */
+   color: #2b87d3; /* Cambia el color del texto a azul */
+   font-weight: bold;
+   font-size: 20px;
+ }
+ 
+ #toggleOpcionesAvanzadas span {
+   margin-right: 5px;
+ }
+ 
+ 
+ 
+ #opcionesAvanzadas {
+   display: none;
+   margin-top: 10px;
+ }
+
 #listaServidores {
    padding-left: 6em;
    padding-right: 6em;
