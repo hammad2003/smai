@@ -127,18 +127,16 @@
                 <option value="adventure">Aventura</option>
                 <option value="spectator">Espectador</option>
             </select>
-     
-            <div class="toggle-switch">
-                <input type="checkbox" id="spawnMonstersToggle" class="toggle-input">
-                <label for="spawnMonstersToggle" class="toggle-label"></label>
-                <span>Spawn de Monstruos</span>
-            </div>
-     
-            <div class="toggle-switch">
-                <input type="checkbox" id="pvpToggle" class="toggle-input">
-                <label for="pvpToggle" class="toggle-label"></label>
-                <span>PvP</span>
-            </div>
+
+            <input type="number" id="maxBuildHeight" placeholder="Altura máxima de construcción" value="256">
+            <input type="number" id="viewDistance" placeholder="Distancia de visión" value="10">
+            <input type="checkbox" id="spawnNpcs" checked> Generar NPCs
+            <input type="checkbox" id="allowNether" checked> Permitir Nether
+            <input type="checkbox" id="spawnAnimals" checked> Generar animales
+            <input type="checkbox" id="spawnMonsters" checked> Generar monstruos
+            <input type="checkbox" id="pvp" checked> Permitir PvP
+            <input type="checkbox" id="enableCommandBlock"> Habilitar bloques de comandos
+            <input type="checkbox" id="allowFlight" checked> Permitir vuelo
         </div>
     
         <button class='button1' onclick="guardarNuevoServidor()">Guardar Servidor</button>
@@ -211,6 +209,16 @@
             var version = $('#version').val();
             var maxPlayers = $('#maxPlayers').val();
             var difficulty = $('#difficulty').val();
+            var mode = $('#mode').val();
+            var maxBuildHeight = $('#maxBuildHeight').val();
+            var viewDistance = $('#viewDistance').val();
+            var spawnNpcs = $('#spawnNpcs').is(':checked');
+            var allowNether = $('#allowNether').is(':checked');
+            var spawnAnimals = $('#spawnAnimals').is(':checked');
+            var spawnMonsters = $('#spawnMonsters').is(':checked');
+            var pvp = $('#pvp').is(':checked');
+            var enableCommandBlock = $('#enableCommandBlock').is(':checked');
+            var allowFlight = $('#allowFlight').is(':checked');
 
             // Realizar una solicitud AJAX para guardar el nuevo servidor.
             $.ajax({
@@ -221,7 +229,17 @@
                     software: software,
                     version: version,
                     maxPlayers: maxPlayers,
-                    difficulty: difficulty 
+                    difficulty: difficulty,
+                    mode: mode,
+                    maxBuildHeight: maxBuildHeight,
+                    viewDistance: viewDistance,
+                    spawnNpcs: spawnNpcs,
+                    allowNether: allowNether,
+                    spawnAnimals: spawnAnimals,
+                    spawnMonsters: spawnMonsters,
+                    pvp: pvp,
+                    enableCommandBlock: enableCommandBlock,
+                    allowFlight: allowFlight
                 }),
                 contentType: 'application/json',
                 success: function (response) {
