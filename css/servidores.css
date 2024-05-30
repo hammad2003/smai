@@ -7,7 +7,7 @@ body {
 }
 
 h1 {
-   margin-top: 4em;
+   margin-top: 2em;
    color: #333;
    margin-bottom: 20px;
 }
@@ -74,25 +74,37 @@ button {
 #toggleOpcionesAvanzadas {
    cursor: pointer;
    display: flex;
+   padding-top: 2em;
+   padding-bottom: 2em;
    align-items: center;
-   margin-top: 15px;
-   padding: 8px 12px; /* Añadido para un mejor aspecto */
-   border-radius: 5px; /* Añadido para un mejor aspecto */
-   color: #2b87d3; /* Cambia el color del texto a azul */
+   border-radius: 5px;
+   color: #2b87d3;
    font-weight: bold;
    font-size: 20px;
  }
  
- #toggleOpcionesAvanzadas span {
-   margin-right: 5px;
- }
- 
- 
- 
- #opcionesAvanzadas {
-   display: none;
-   margin-top: 10px;
- }
+ #opcionesAvanzadas .opciones-container {
+   display: grid;
+   grid-template-columns: 1fr 1fr 1fr;
+}
+
+.column {
+   display: flex;
+   flex-direction: column;
+}
+
+.checkbox-container {
+   display: flex;
+   align-items: center;
+}
+
+.checkbox-container input[type="checkbox"] {
+   margin-right: 5px; /* Espacio entre el checkbox y el label */
+}
+
+.checkbox-container label {
+   margin-bottom: 0; /* Elimina el espacio debajo del label */
+}
 
 #listaServidores {
    padding-left: 6em;
