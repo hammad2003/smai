@@ -35,6 +35,7 @@
         <select id="software" required>
             <option value="Java">Java (Recomendado)</option>
             <option value="Forge">Forge</option>
+            <option value="Fabric">Fabric</option>
             <option value="Spigot">Spigot</option>
             <option value="Bukkit">Bukkit</option>
         </select>
@@ -771,6 +772,9 @@
         }
 
 
+        // Definir intervalId como variable global
+        var intervalId;
+
         // Enviar solicitud AJAX para vel la consola del servidor
         function consolaServidor(servidorId) {
             var consoleOverlay = document.getElementById('consoleOverlay');
@@ -836,6 +840,7 @@
                 consoleOverlay.style.display = 'none';
                 consoleWindow.style.display = 'none';
                 clearInterval(intervalId);
+                location.reload();
             };
 
             // Llamar a la función para actualizar el contenido del div inicialmente
@@ -872,7 +877,7 @@
                             botonesHTML = '<button class="boton-eliminar-parar-servidor" onclick="apagarServidor(' + servidor.id + ')"> <i class="fas fa-power-off"></i> Apagar</button>' +
                                 '<button class="boton-reiniciar-servidor" onclick="reiniciarServidor(' + servidor.id + ')"><i class="fas fa-sync-alt"></i></button>';
 
-                            if (servidor.software === 'Forge') {
+                            if (servidor.software === 'Forge' || servidor.software === 'Fabric') {
                                 botonesHTML += '<button class="boton-iniciar-servidor" onclick="mostrarVentanaSubirArchivos(' + servidor.id + ')"><i class="fas fa-file-upload"></i></button>';
                             } else if (servidor.software === 'Bukkit' || servidor.software === 'Spigot') {
                                 botonesHTML += '<button class="boton-iniciar-servidor" onclick="mostrarVentanaSubirArchivos(' + servidor.id + ')"><i class="fas fa-file-upload"></i></button>';
@@ -925,5 +930,4 @@
     <!-- <footer></footer> -->
 </body>
 <script type="text/javascript" src="main.js"></script>
-
 </html>
