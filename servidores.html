@@ -237,13 +237,13 @@
             var mode = $('#mode').val();
             var maxBuildHeight = $('#maxBuildHeight').val();
             var viewDistance = $('#viewDistance').val();
-            var spawnNpcs = $('#spawnNpcs').is(':checked');
-            var allowNether = $('#allowNether').is(':checked');
-            var spawnAnimals = $('#spawnAnimals').is(':checked');
-            var spawnMonsters = $('#spawnMonsters').is(':checked');
-            var pvp = $('#pvp').is(':checked');
-            var enableCommandBlock = $('#enableCommandBlock').is(':checked');
-            var allowFlight = $('#allowFlight').is(':checked');
+            var spawnNpcs = $('#spawnNpcs').prop('checked');
+            var allowNether = $('#allowNether').prop('checked');
+            var spawnAnimals = $('#spawnAnimals').prop('checked');
+            var spawnMonsters = $('#spawnMonsters').prop('checked');
+            var pvp = $('#pvp').prop('checked');
+            var enableCommandBlock = $('#enableCommandBlock').prop('checked');
+            var allowFlight = $('#allowFlight').prop('checked');
 
             // Realizar una solicitud AJAX para guardar el nuevo servidor.
             $.ajax({
@@ -282,7 +282,22 @@
                             if (result.isConfirmed) {
                                 cargarServidores(); // Recargar la lista de servidores.
                                 $('#nuevoServidorForm').slideUp(); // Ocultar el formulario.
+                                $('#opcionesAvanzadas').slideUp();
                                 $('#botonCrear').show(); // Mostrar el botón nuevamente.
+                                
+                                // Restablecer los campos del formulario a sus valores por defecto.
+                                $('#maxPlayers').val('20'); 
+                                $('#difficulty').val('easy');
+                                $('#mode').val('survival');
+                                $('#maxBuildHeight').val('256');
+                                $('#viewDistance').val('10');
+                                $('#spawnNpcs').prop('checked', true);
+                                $('#allowNether').prop('checked', true);
+                                $('#spawnAnimals').prop('checked', true);
+                                $('#spawnMonsters').prop('checked', true);
+                                $('#pvp').prop('checked', true); 
+                                $('#enableCommandBlock').prop('checked', false);
+                                $('#allowFlight').prop('checked', true);
                             }
                         });
                     } else {
