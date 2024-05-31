@@ -174,10 +174,13 @@
         <button onclick="cerrarModal()">Cerrar</button>
     </div>
 
-    <!-- Div precreado para la consola -->
-    <div id="consoleWindow" class="console-window">
-        <div id="consoleContent" class="console-content"></div>
-        <button id="closeButton" class="close-button"><i class="fas fa-times"></i></button>
+    <!-- Contenedor con fondo negro semitransparente -->
+    <div id="consoleOverlay" class="console-overlay">
+        <!-- Div precreado para la consola -->
+        <div id="consoleWindow" class="console-window">
+            <div id="consoleContent" class="console-content"></div>
+            <button id="closeButton" class="close-button"><i class="fas fa-times"></i></button>
+        </div>
     </div>
 
     <!-- Lista de Servidores -->
@@ -755,6 +758,9 @@
 
         // Enviar solicitud AJAX para vel la consola del servidor
         function consolaServidor(servidorId) {
+            var consoleOverlay = document.getElementById('consoleOverlay');
+            consoleOverlay.style.display = 'block';
+
             // Mostrar el div de la consola
             var consoleWindow = document.getElementById('consoleWindow');
             consoleWindow.style.display = 'block';
@@ -812,6 +818,7 @@
 
             // Cerrar la consola al hacer clic en el botón de cerrar
             document.getElementById('closeButton').onclick = function() {
+                consoleOverlay.style.display = 'none';
                 consoleWindow.style.display = 'none';
                 clearInterval(intervalId);
             };
