@@ -32,6 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Definir el directorio de destino en función del software del servidor
         switch ($software) {
             case 'Forge':
+            case 'Fabric':
                 $directorioDestino = "/var/www/html/mods";
                 $directorioDestinoContenedor = "/data/mods/";
                 break;

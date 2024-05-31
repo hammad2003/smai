@@ -94,6 +94,8 @@ if ($result->num_rows > 0) {
 
         if ($servidor['software'] === 'Forge') {
             $comando .= " -e TYPE=FORGE";
+        }  elseif ($servidor['software'] === 'Fabric') {
+            $comando .= " -e TYPE=FABRIC";
         } elseif ($servidor['software'] === 'Spigot') {
             $comando .= " -e TYPE=SPIGOT";
         } elseif ($servidor['software'] === 'Bukkit') {
