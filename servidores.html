@@ -117,8 +117,8 @@
                     <label for="difficulty">Dificultad:</label>
 
                     <select id="difficulty">
-                        <option value="peaceful">Pacífica</option>
                         <option value="easy">Fácil</option>
+                        <option value="peaceful">Pacífica</option>
                         <option value="normal">Normal</option>
                         <option value="hard">Difícil</option>
                     </select>
@@ -126,9 +126,9 @@
                     <label for="mode">Gamemode:</label>    
 
                     <select id="mode">
-                        <option value="creative">Creativo</option>
                         <option value="survival">Supervivencia</option>
                         <option value="adventure">Aventura</option>
+                        <option value="creative">Creativo</option>
                         <option value="spectator">Espectador</option>
                     </select>
                 </div>
@@ -158,7 +158,7 @@
                     <input class="switch" type="checkbox" id="spawnMonsters" checked>
                     <input class="switch" type="checkbox" id="pvp" checked>
                     <input class="switch" type="checkbox" id="enableCommandBlock">
-                    <input class="switch" type="checkbox" id="allowFlight" checked>
+                    <input class="switch" type="checkbox" id="allowFlight">
                 </div>
             </div>
         </div>
@@ -246,27 +246,32 @@
             var enableCommandBlock = $('#enableCommandBlock').prop('checked');
             var allowFlight = $('#allowFlight').prop('checked');
 
+            // Crear un objeto con los datos del servidor
+            var serverData = {
+                nombreServidor: nombreServidor,
+                software: software,
+                version: version
+            };
+
+            // Solo agregar propiedades si son diferentes de los valores por defecto
+            if (maxPlayers !== "20") serverData.maxPlayers = maxPlayers;
+            if (difficulty !== "easy") serverData.difficulty = difficulty;
+            if (mode !== "survival") serverData.mode = mode;
+            if (maxBuildHeight !== "256") serverData.maxBuildHeight = maxBuildHeight;
+            if (viewDistance !== "10") serverData.viewDistance = viewDistance;
+            if (spawnNpcs !== true) serverData.spawnNpcs = spawnNpcs;
+            if (allowNether !== true) serverData.allowNether = allowNether;
+            if (spawnAnimals !== true) serverData.spawnAnimals = spawnAnimals;
+            if (spawnMonsters !== true) serverData.spawnMonsters = spawnMonsters;
+            if (pvp !== true) serverData.pvp = pvp;
+            if (enableCommandBlock !== false) serverData.enableCommandBlock = enableCommandBlock;
+            if (allowFlight !== false) serverData.allowFlight = allowFlight;
+
             // Realizar una solicitud AJAX para guardar el nuevo servidor.
             $.ajax({
                 type: 'POST',
                 url: 'guardar_servidor.php',
-                data: JSON.stringify({
-                    nombreServidor: nombreServidor,
-                    software: software,
-                    version: version,
-                    maxPlayers: maxPlayers,
-                    difficulty: difficulty,
-                    mode: mode,
-                    maxBuildHeight: maxBuildHeight,
-                    viewDistance: viewDistance,
-                    spawnNpcs: spawnNpcs,
-                    allowNether: allowNether,
-                    spawnAnimals: spawnAnimals,
-                    spawnMonsters: spawnMonsters,
-                    pvp: pvp,
-                    enableCommandBlock: enableCommandBlock,
-                    allowFlight: allowFlight
-                }),
+                data: JSON.stringify(serverData),
                 contentType: 'application/json',
                 success: function (response) {
                     var result = JSON.parse(response);
@@ -298,7 +303,7 @@
                                 $('#spawnMonsters').prop('checked', true);
                                 $('#pvp').prop('checked', true); 
                                 $('#enableCommandBlock').prop('checked', false);
-                                $('#allowFlight').prop('checked', true);
+                                $('#allowFlight').prop('checked', false);
                             }
                         });
                     } else {
