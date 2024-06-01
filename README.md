@@ -8,6 +8,7 @@ Explora con nosotros nuevas formas de sumergirte en el universo de Minecraft. En
 
 Así que prepárate para disfrutar de lo inesperado, lo no convencional y lo extraordinario. ¡Estamos emocionados de tenerte con nosotros en este viaje hacia la diversión y la exploración!
 
+
 > [!NOTE]
 > ## Requisitos
 > - **Cliente:** 
