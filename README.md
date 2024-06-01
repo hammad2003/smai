@@ -40,7 +40,24 @@ Así que prepárate para disfrutar de lo inesperado, lo no convencional y lo ext
    Al ejecutar `run.sh`, se te presentará un menú con dos opciones:
    - **Configurar el Cliente:** Instala el TLauncher (Minecraft) en el cliente.
    - **Configurar el Servidor SMAI:** Configura una página para alojar servidores de Minecraft con SMAI.
-  
+
+# Configuración del Servidor SMAI
+
+Después de instalar y configurar el Servidor SMAI, es importante seguir estos pasos adicionales:
+
+1. Abre una terminal.
+2. Navega al directorio `/var/www/html` ejecutando el siguiente comando:
+    ```
+    cd /var/www/html
+    ```
+
+3. Una vez en el directorio, inicia el servidor PHP ejecutando el siguiente comando:
+    ```
+    php -S 0.0.0.0:5500 -t .
+    ```
+
+Este comando iniciará un servidor PHP en la dirección IP `0.0.0.0` y el puerto `5500`, sirviendo los archivos del directorio actual (`.`). Asegúrate de que el servidor esté en funcionamiento antes de proceder con cualquier otra tarea.
+
 ## Herramientas ⚙:
 ![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)
 ![Google Drive](https://img.shields.io/badge/Google%20Drive-4285F4?style=for-the-badge&logo=googledrive&logoColor=white)
