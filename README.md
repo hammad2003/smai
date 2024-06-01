@@ -24,7 +24,7 @@ Así que prepárate para disfrutar de lo inesperado, lo no convencional y lo ext
 1. **Clonar el Repositorio:**
    Clona o descarga el repositorio de GitHub en el cliente.
    ```bash
-   https://github.com/hammad2003/Scripts-Playbooks.git
+   https://github.com/hammad2003/Scripts-Playbooks.git && cd Scripts-Playbooks
 
 3. **Ejecutar Script de Instalación:**
    Ejecuta el script `run.sh` para configurar el servidor o cliente. Asegúrate de dar permisos de ejecución al script con el comando:
