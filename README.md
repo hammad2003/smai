@@ -3,7 +3,7 @@
     ```bash
     git clone https://github.com/hammad2003/Scripts-Playbooks.git && cd Scripts-Playbooks
     ```
-2. Run the `rocket_setup.sh` script to set up the environment:
+2. Run the `run.sh` script to set up the environment:
     ```bash
     chmod u+x install_client.sh
     chmod u+x install_server.sh
