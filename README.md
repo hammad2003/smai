@@ -43,9 +43,9 @@ Así que prepárate para disfrutar de lo inesperado, lo no convencional y lo ext
    - **Configurar el Servidor SMAI:** Configura una página para alojar servidores de Minecraft con SMAI.
 
 
-## Configuración del Cliente
+## Configuración del Cliente (Minecraft)
 
-Para configurar el Cliente , sigue estos pasos:
+Para jugar al Minecraft, sigue estos pasos:
 
 1. Abre una terminal.
 2. Navega al directorio ejecutando el siguiente comando:
@@ -86,7 +86,7 @@ Después de instalar y configurar el Servidor SMAI, es importante seguir estos p
     php -S 0.0.0.0:5500 -t .
     ```
 
-Este comando iniciará un servidor PHP en la dirección IP `0.0.0.0` y el puerto `5500`, sirviendo los archivos del directorio actual (`.`). Asegúrate de que el servidor esté en funcionamiento antes de proceder con cualquier otra tarea.
+Este comando iniciará un servidor PHP en cualquier dirección IP de tu red `0.0.0.0` y el puerto `5500`, sirviendo los archivos del directorio actual (`.`). Asegúrate de que el servidor esté en funcionamiento antes de proceder con cualquier otra tarea.
 
 
 ## Herramientas ⚙:
