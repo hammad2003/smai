@@ -7,7 +7,10 @@
 3. 
     ```bash
     chmod u+x install_client.sh
+    ```
     ```bash
     chmod u+x install_server.sh
+    ```
     ```bash
     chmod u+x run.sh && ./run.sh
+    ```
