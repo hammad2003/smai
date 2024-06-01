@@ -1,4 +1,4 @@
-# **🚀 Configuración de Cliente y Servidor 🛠️**
+# **🚀 Servidores de Minecraft. Automatizados. Increíbles.
 
 ¡Bienvenido a SMAI!
 
