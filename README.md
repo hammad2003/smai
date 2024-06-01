@@ -18,6 +18,7 @@ Así que prepárate para disfrutar de lo inesperado, lo no convencional y lo ext
 >   - Linux (Ubuntu o distribución similar).
 >   - Acceso a Internet.
 
+
 ## 🛠️ Installation / Configuración de SMAI
 
 1. **Clonar el Repositorio:**
@@ -40,6 +41,7 @@ Así que prepárate para disfrutar de lo inesperado, lo no convencional y lo ext
    Al ejecutar `run.sh`, se te presentará un menú con dos opciones:
    - **Configurar el Cliente:** Instala el TLauncher (Minecraft) en el cliente.
    - **Configurar el Servidor SMAI:** Configura una página para alojar servidores de Minecraft con SMAI.
+
 
 ## Configuración del Cliente
 
@@ -68,6 +70,7 @@ Para configurar el Cliente , sigue estos pasos:
 
 Recuerda que estos pasos son necesarios para iniciar correctamente el cliente (Minecraft). ¡Disfruta de tu experiencia!
 
+
 ## Configuración del Servidor SMAI
 
 Después de instalar y configurar el Servidor SMAI, es importante seguir estos pasos adicionales:
@@ -84,6 +87,7 @@ Después de instalar y configurar el Servidor SMAI, es importante seguir estos p
     ```
 
 Este comando iniciará un servidor PHP en la dirección IP `0.0.0.0` y el puerto `5500`, sirviendo los archivos del directorio actual (`.`). Asegúrate de que el servidor esté en funcionamiento antes de proceder con cualquier otra tarea.
+
 
 ## Herramientas ⚙:
 ![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)
