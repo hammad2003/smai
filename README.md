@@ -41,7 +41,34 @@ Así que prepárate para disfrutar de lo inesperado, lo no convencional y lo ext
    - **Configurar el Cliente:** Instala el TLauncher (Minecraft) en el cliente.
    - **Configurar el Servidor SMAI:** Configura una página para alojar servidores de Minecraft con SMAI.
 
-# Configuración del Servidor SMAI
+## Configuración del Cliente
+
+Para configurar el Cliente , sigue estos pasos:
+
+1. Abre una terminal.
+2. Navega al directorio ejecutando el siguiente comando:
+    ```
+    cd /home/usuario/smai/launcher
+    ```
+
+3. Una vez en el directorio del lanzador, hay dos opciones:
+
+    a. Ejecutar el lanzador directamente mediante el comando:
+       ```
+       java -jar TLauncher.jar
+       ```
+
+    b. Alternativamente, puedes hacer lo siguiente:
+
+       - Haz clic derecho en el archivo `TLauncher.jar`.
+       - Selecciona "Propiedades".
+       - Ve a la pestaña "Permisos".
+       - Marca la opción "Permitir ejecutar el archivo como un programa".
+       - Luego, abre el archivo con OpenJDK Java 18 Runtime.
+
+Recuerda que estos pasos son necesarios para iniciar correctamente el cliente (Minecraft). ¡Disfruta de tu experiencia!
+
+## Configuración del Servidor SMAI
 
 Después de instalar y configurar el Servidor SMAI, es importante seguir estos pasos adicionales:
 
