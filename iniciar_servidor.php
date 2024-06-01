@@ -20,19 +20,20 @@ if ($result->num_rows > 0) {
         // Obtener las propiedades avanzadas del servidor
         $queryProperties = "SELECT * FROM server_properties WHERE server_id = $servidorId";
         $resultProperties = $conn->query($queryProperties);
-
-        $maxPlayers = 20;  // valor por defecto
-        $difficulty = 'easy';  // valor por defecto
-        $mode = 'survival'; // valor por defecto
-        $maxBuildHeight = 256; // valor por defecto
-        $viewDistance = 10; // valor por defecto
-        $spawnNpcs = true; // valor por defecto
-        $allowNether = true; // valor por defecto
-        $spawnAnimals = true; // valor por defecto
-        $spawnMonsters = true; // valor por defecto
-        $pvp = true; // valor por defecto
-        $enableCommandBlock = false; // valor por defecto
-        $allowFlight = true; // valor por defecto
+        
+        // valor por defecto
+        $maxPlayers = 20;
+        $difficulty = 'easy'; 
+        $mode = 'survival'; 
+        $maxBuildHeight = 256;
+        $viewDistance = 10;
+        $spawnNpcs = true; 
+        $allowNether = true;
+        $spawnAnimals = true; 
+        $spawnMonsters = true; 
+        $pvp = true; 
+        $enableCommandBlock = false; 
+        $allowFlight = false;
 
         if ($resultProperties->num_rows > 0) {
             $properties = $resultProperties->fetch_assoc();
@@ -88,7 +89,7 @@ if ($result->num_rows > 0) {
         if ($enableCommandBlock != false) {
             $comando .= " -e ENABLE_COMMAND_BLOCK=$enableCommandBlock";
         }
-        if ($allowFlight != true) {
+        if ($allowFlight != false) {
             $comando .= " -e ALLOW_FLIGHT=$allowFlight";
         }
 

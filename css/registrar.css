@@ -47,11 +47,12 @@ button {
 }
 
 button:hover {
-    background-color: #0056b3;
+    background-color: #45a049;
 }
 
-/* Aplicar estilo específico a los enlaces dentro del formulario */
 form a {
     color: #007bff;
     text-decoration: none;
+    margin-top: 10px;
+    display: inline-block;
 }

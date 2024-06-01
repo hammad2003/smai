@@ -59,7 +59,7 @@ if ($stmt->execute()) {
     $spawnMonsters = isset($data->spawnMonsters) ? (bool)$data->spawnMonsters : true;
     $pvp = isset($data->pvp) ? (bool)$data->pvp : true;
     $enableCommandBlock = isset($data->enableCommandBlock) ? (bool)$data->enableCommandBlock : false;
-    $allowFlight = isset($data->allowFlight) ? (bool)$data->allowFlight : true;
+    $allowFlight = isset($data->allowFlight) ? (bool)$data->allowFlight : false;
 
     // Insertar datos en la tabla 'server_properties'
     $stmt = $conn->prepare("INSERT INTO server_properties (server_id, max_players, difficulty, mode, max_build_height, view_distance, spawn_npcs, allow_nether, spawn_animals, spawn_monsters, pvp, enable_command_block, allow_flight) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
