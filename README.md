@@ -1,4 +1,4 @@
-# **🚀 Servidores de Minecraft. Automatizados. Increíbles.
+# **🚀 Servidores de Minecraft. Automatizados. Increíbles. **
 
 ¡Bienvenido a SMAI!
 
